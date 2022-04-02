@@ -6,23 +6,24 @@ public class PlayerCollider : MonoBehaviour
 {
     
     public Transform kucak;
-    public GameObject money;
+    public GameObject[] money;
+    public GameObject moneyBurst;
     public Projectile projectile;
     public Transform projectileTrans;
-    public bool turn;
+   
     private void OnTriggerEnter(Collider other)
     {
 
         if (other.tag=="Bank")
         {
-            
-            if (turn)
-            {
-                GameObject obj = Instantiate(money, kucak.position, Quaternion.identity);
-                obj.transform.parent = projectileTrans;
-                projectile.listObj.Add(obj.transform);
 
-            }
+            int random = Random.Range(0,money.Length);
+            Instantiate(moneyBurst, kucak.position, Quaternion.identity);
+            GameObject obj = Instantiate(money[random], kucak.position, Quaternion.identity);
+            obj.transform.parent = projectileTrans;
+            projectile.listObj.Add(obj.transform);
+
+            
             
             
 
