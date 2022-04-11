@@ -20,58 +20,87 @@ public class Projectile : MonoBehaviour
 	public bool throwObj;
 	bool touch;
 	public Animator[] anim;
-	
+	public Collider colliderBusiness;
+	public Collider colliderThief;
+	public Transform BusinessCharacter;
+	public Transform ThiefCharacter;
 
 	
 	public List<Transform> listObj;
-    void Start()
-	{
-		// Cache our start position, which is really the only thing we need
-		// (in addition to our current position, and the target).
-		
-		
-	}
 
-	void Update()
+    private void Start()
+    {
+		colliderBusiness.enabled = false;
+		colliderThief.enabled = true;
+
+
+
+		BusinessCharacter.GetChild(0).gameObject.SetActive(true);
+		BusinessCharacter.GetChild(1).gameObject.SetActive(false);
+
+		ThiefCharacter.GetChild(0).gameObject.SetActive(false);
+		ThiefCharacter.GetChild(1).gameObject.SetActive(true);
+	}
+    void Update()
 	{
-		Debug.Log("List "+listObj.Count);
+		
         if (dynamicJoystick.Horizontal>0)
         {
-			// Compute the next position, with arc added in
+			BusinessCharacter.GetChild(0).gameObject.SetActive(false);
+			BusinessCharacter.GetChild(1).gameObject.SetActive(true);
+			ThiefCharacter.GetChild(0).gameObject.SetActive(true);
+			ThiefCharacter.GetChild(1).gameObject.SetActive(false);
 
+			anim[0].SetBool("isCarry", true);
+			anim[1].SetBool("isCarry", false);
+			anim[2].SetBool("isCarry", true);
+			anim[3].SetBool("isCarry", false);
+
+			colliderBusiness.enabled = true;
+			colliderThief.enabled = false;
 			throwObj = true;
 			touch = true;
 			
 
-			// Rotate to face the next position, and then move there
-			
-
-			// Do something when we reach the target
-			//if (nextPos == targetPos.position) Arrived();
+		
 		}
         if(dynamicJoystick.Horizontal < 0)
         {
-			// Compute the next position, with arc added in
+			BusinessCharacter.GetChild(0).gameObject.SetActive(true);
+			BusinessCharacter.GetChild(1).gameObject.SetActive(false);
+			ThiefCharacter.GetChild(0).gameObject.SetActive(false);
+			ThiefCharacter.GetChild(1).gameObject.SetActive(true);
 
+
+			
+
+			anim[0].SetBool("isCarry", false);
+			anim[1].SetBool("isCarry", true);
+			anim[2].SetBool("isCarry", false);
+			anim[3].SetBool("isCarry", true);
+
+			colliderBusiness.enabled = false;
+			colliderThief.enabled = true;
 			throwObj = false;
 			touch = true;
-			// Do something when we reach the target
-			//if (nextPos == startPos.position) Arrived();
+		
 		}
         if (touch)
         {
 			if (throwObj)
 			{
-				anim[0].SetBool("isCarry", false);
-				anim[1].SetBool("isCarry", true);
+				//BUSÝNESS
+				
+
 				float x0 = startPos.position.x;
 				float x1 = targetPos.position.x;
 				MoveOtherSide(x0, x1);
 			}
 			else
 			{
-				anim[0].SetBool("isCarry", true);
-				anim[1].SetBool("isCarry", false);
+				//THIEF
+				
+
 				float x0 = targetPos.position.x;
 				float x1 = startPos.position.x;
 				MoveOtherSide(x0, x1);
