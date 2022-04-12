@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Bank
   - Wheel
+  - PrintArea
   layers:
   - Default
   - TransparentFX

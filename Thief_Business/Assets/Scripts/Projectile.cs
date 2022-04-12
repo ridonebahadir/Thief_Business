@@ -24,7 +24,8 @@ public class Projectile : MonoBehaviour
 	//public Collider colliderThief;
 	public Transform BusinessKucak;
 	public Transform ThiefKucak;
-	
+	public Transform Printer;
+	public bool isPrinter;
 
 	
 	public List<Transform> listObj;
@@ -85,10 +86,13 @@ public class Projectile : MonoBehaviour
 			}
 			if (throwObj)
 			{
-                //BUSÝNESS
-               
+				//BUSÝNESS
+				//transform.parent = BusinessKucak;
 				startPos = BusinessKucak;
-				targetPos = ThiefKucak;
+
+				if (isPrinter) targetPos = Printer;
+				else targetPos = ThiefKucak;
+
 				Invoke("LateBusinessThrow", 0f);
 				Invoke("LateBusiness", 0.65f);
 				float x0 = startPos.position.x;
@@ -97,11 +101,13 @@ public class Projectile : MonoBehaviour
 			}
 			else
 			{
-				
-				//THIEF
 
+				//THIEF
+				//transform.parent = ThiefKucak;
 				startPos = ThiefKucak;
-				targetPos = BusinessKucak;
+				if (isPrinter) targetPos = Printer;
+				else targetPos = BusinessKucak;
+				
 				Invoke("LateThiefThrow", 0f);
 				Invoke("LateThief", 0.65f);
 				float x0 = startPos.position.x;
@@ -109,10 +115,23 @@ public class Projectile : MonoBehaviour
 				MoveOtherSide(x0, x1);
 
 			}
-		}
-        
 
-	}
+          
+		}
+        if (isPrinter)
+        {
+			if (throwObj) startPos = ThiefKucak;
+			else startPos = BusinessKucak;
+
+			
+            targetPos = Printer;
+            float x0 = startPos.position.x;
+            float x1 = targetPos.position.x;
+            MoveOtherSide(x0, x1);
+        }
+
+
+    }
 	void LateThief()
     {
 		anim[1].SetBool("isCarry", false);

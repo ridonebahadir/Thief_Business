@@ -9,7 +9,7 @@ public class Wheel : MonoBehaviour
 {
     public Animator anim;
     public RectTransform rectTransform;
-
+    public GameObject whellPanel;
     private void Start()
     {
         
@@ -30,8 +30,12 @@ public class Wheel : MonoBehaviour
             if (Mathf.Clamp(zRotation, 270, 300)==zRotation) Debug.Log("4x");
             if (Mathf.Clamp(zRotation, 300, 330)==zRotation) Debug.Log("5x");
             if (Mathf.Clamp(zRotation, 330, 360)==zRotation) Debug.Log("6x");
-
+            Invoke("Late",2f);
 
         }
+    }
+    void Late()
+    {
+        whellPanel.SetActive(false);
     }
 }
