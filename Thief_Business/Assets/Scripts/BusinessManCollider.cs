@@ -7,6 +7,9 @@ using DG.Tweening;
 
 public class BusinessManCollider : MonoBehaviour
 {
+    public bool isMoneyHave = false;
+    [Header("MONEY")]
+    public GameManager gameManager;
     [Header("PRÝNT AREA")]
     public Move move;
     public Printer printer;
@@ -45,16 +48,39 @@ public class BusinessManCollider : MonoBehaviour
             //wheelPanel.SetActive(true);
         }
 
-        if (other.tag=="Bank")
+        if (other.tag=="Door")
         {
-
-            //int random = Random.Range(0,money.Length);
-            Instantiate(moneyBurst, kucak.position, Quaternion.identity);
-            GameObject obj = Instantiate(money, kucak.position, Quaternion.identity);
-            obj.transform.parent = kucak;
-            projectile.listObj.Add(obj.transform);
+            if (isMoneyHave)
+            {
+                gameManager.money += other.GetComponent<Door>().value;
+                gameManager.moneyText.text = gameManager.money.ToString();
+                //int random = Random.Range(0,money.Length);
+                if (gameManager.money>0)
+                {
+                    Instantiate(moneyBurst, kucak.position, Quaternion.identity);
+                    for (int i = 0; i <3; i++)
+                    {
+                        GameObject obj = Instantiate(money, kucak.position, Quaternion.identity);
+                        obj.transform.parent = kucak;
+                        projectile.listObj.Add(obj.transform);
+                    }
+                  
+                }
+                else
+                {
+                    foreach (var item in projectile.listObj)
+                    {
+                        Destroy(item.gameObject);
+                    }
+                    projectile.listObj.Clear();
+                   
+                }
+               
+            }
+            
 
         }
+        
     }
     void Late()
     {

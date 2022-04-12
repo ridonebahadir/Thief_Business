@@ -27,6 +27,8 @@ public class Projectile : MonoBehaviour
 	public Transform Printer;
 	public bool isPrinter;
 
+	public BusinessManCollider businessManCollider;
+	public ThiefCollider thiefCollider;
 	
 	public List<Transform> listObj;
 
@@ -49,9 +51,10 @@ public class Projectile : MonoBehaviour
 			//ThiefCharacter.GetChild(0).gameObject.SetActive(true);
 			//ThiefCharacter.GetChild(1).gameObject.SetActive(false);
 
-			
-			
-			
+
+
+			thiefCollider.isMoneyHave = true;
+			businessManCollider.isMoneyHave = false;
 			//colliderBusiness.enabled = true;
 			//colliderThief.enabled = false;
 			throwObj = true;
@@ -62,14 +65,16 @@ public class Projectile : MonoBehaviour
 		}
         if(dynamicJoystick.Horizontal > 0)
         {
+			thiefCollider.isMoneyHave = false;
+			businessManCollider.isMoneyHave = true;
 			//BusinessCharacter.GetChild(0).gameObject.SetActive(true);
 			//BusinessCharacter.GetChild(1).gameObject.SetActive(false);
 			//ThiefCharacter.GetChild(0).gameObject.SetActive(false);
 			//ThiefCharacter.GetChild(1).gameObject.SetActive(true);
 
-			
-			
-			
+
+
+
 
 			//colliderBusiness.enabled = false;
 			//colliderThief.enabled = true;
