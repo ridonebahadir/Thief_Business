@@ -18,91 +18,94 @@ public class Projectile : MonoBehaviour
 	public Transform startPos;
     private Vector3 nextPos;
 	public bool throwObj;
-	bool touch;
+	public bool touch;
 	public Animator[] anim;
-	public Collider colliderBusiness;
-	public Collider colliderThief;
-	public Transform BusinessCharacter;
-	public Transform ThiefCharacter;
+	//public Collider colliderBusiness;
+	//public Collider colliderThief;
+	public Transform BusinessKucak;
+	public Transform ThiefKucak;
+	
 
 	
 	public List<Transform> listObj;
 
     private void Start()
     {
-		colliderBusiness.enabled = false;
-		colliderThief.enabled = true;
+		//colliderBusiness.enabled = false;
+		//colliderThief.enabled = true;
 
 
 
-		BusinessCharacter.GetChild(0).gameObject.SetActive(true);
-		BusinessCharacter.GetChild(1).gameObject.SetActive(false);
-
-		ThiefCharacter.GetChild(0).gameObject.SetActive(false);
-		ThiefCharacter.GetChild(1).gameObject.SetActive(true);
+		
 	}
     void Update()
 	{
 		
-        if (dynamicJoystick.Horizontal>0)
+        if (dynamicJoystick.Horizontal<0)
         {
-			BusinessCharacter.GetChild(0).gameObject.SetActive(false);
-			BusinessCharacter.GetChild(1).gameObject.SetActive(true);
-			ThiefCharacter.GetChild(0).gameObject.SetActive(true);
-			ThiefCharacter.GetChild(1).gameObject.SetActive(false);
+			//BusinessCharacter.GetChild(0).gameObject.SetActive(false);
+			//BusinessCharacter.GetChild(1).gameObject.SetActive(true);
+			//ThiefCharacter.GetChild(0).gameObject.SetActive(true);
+			//ThiefCharacter.GetChild(1).gameObject.SetActive(false);
 
-			anim[0].SetBool("isCarry", true);
-			anim[1].SetBool("isCarry", false);
-			anim[2].SetBool("isCarry", true);
-			anim[3].SetBool("isCarry", false);
-
-			colliderBusiness.enabled = true;
-			colliderThief.enabled = false;
+			
+			
+			
+			//colliderBusiness.enabled = true;
+			//colliderThief.enabled = false;
 			throwObj = true;
 			touch = true;
 			
 
 		
 		}
-        if(dynamicJoystick.Horizontal < 0)
+        if(dynamicJoystick.Horizontal > 0)
         {
-			BusinessCharacter.GetChild(0).gameObject.SetActive(true);
-			BusinessCharacter.GetChild(1).gameObject.SetActive(false);
-			ThiefCharacter.GetChild(0).gameObject.SetActive(false);
-			ThiefCharacter.GetChild(1).gameObject.SetActive(true);
-
+			//BusinessCharacter.GetChild(0).gameObject.SetActive(true);
+			//BusinessCharacter.GetChild(1).gameObject.SetActive(false);
+			//ThiefCharacter.GetChild(0).gameObject.SetActive(false);
+			//ThiefCharacter.GetChild(1).gameObject.SetActive(true);
 
 			
+			
+			
 
-			anim[0].SetBool("isCarry", false);
-			anim[1].SetBool("isCarry", true);
-			anim[2].SetBool("isCarry", false);
-			anim[3].SetBool("isCarry", true);
-
-			colliderBusiness.enabled = false;
-			colliderThief.enabled = true;
+			//colliderBusiness.enabled = false;
+			//colliderThief.enabled = true;
 			throwObj = false;
 			touch = true;
 		
 		}
         if (touch)
         {
+			foreach (var item in listObj)
+			{
+				item.parent = transform;
+				item.localPosition = new Vector3(item.localPosition.x, 0);
+			}
 			if (throwObj)
 			{
-				//BUSÝNESS
-				
-
+                //BUSÝNESS
+               
+				startPos = BusinessKucak;
+				targetPos = ThiefKucak;
+				Invoke("LateBusinessThrow", 0f);
+				Invoke("LateBusiness", 0.65f);
 				float x0 = startPos.position.x;
 				float x1 = targetPos.position.x;
 				MoveOtherSide(x0, x1);
 			}
 			else
 			{
-				//THIEF
 				
+				//THIEF
 
-				float x0 = targetPos.position.x;
-				float x1 = startPos.position.x;
+				startPos = ThiefKucak;
+				targetPos = BusinessKucak;
+				Invoke("LateThiefThrow", 0f);
+				Invoke("LateThief", 0.65f);
+				float x0 = startPos.position.x;
+				float x1 = targetPos.position.x;
 				MoveOtherSide(x0, x1);
 
 			}
@@ -110,6 +113,35 @@ public class Projectile : MonoBehaviour
         
 
 	}
+	void LateThief()
+    {
+		anim[1].SetBool("isCarry", false);
+		
+		
+		
+
+	}
+	void LateThiefThrow()
+	{
+
+		anim[0].SetBool("isCarry", true);
+
+
+	}
+	void LateBusiness()
+    {
+		anim[0].SetBool("isCarry", false);
+		
+		
+	}
+	void LateBusinessThrow()
+	{
+		
+		anim[1].SetBool("isCarry", true);
+
+	}
+
+
 
 	//void Arrived()
 	//{
@@ -131,7 +163,7 @@ public class Projectile : MonoBehaviour
 		float dist = x1 - x0;
 		for (int i = 0; i < listObj.Count; i++)
         {
-			float nextX = Mathf.MoveTowards(listObj[i].transform.position.x, x1, (speed + i ) * Time.deltaTime);
+			float nextX = Mathf.MoveTowards(listObj[i].transform.position.x, x1, (speed -  i ) * Time.deltaTime);
 			float baseY = Mathf.Lerp(startPos.position.y, targetPos.position.y, (nextX - x0) / dist);
 			float arc = arcHeight * (nextX - x0) * (nextX - x1) / (-0.25f * dist * dist);
 			nextPos = new Vector3(nextX, baseY + arc, (listObj[i].transform.position.z));

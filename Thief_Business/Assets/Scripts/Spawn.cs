@@ -6,13 +6,24 @@ public class Spawn : MonoBehaviour
 {
     public GameObject[] place;
     public int countSpawn;
+    public Transform holder_bus;
+    public Transform holder_thief;
     void Start()
     {
-        for (int i = 1; i <= countSpawn; i++)
+        for (int i = 1; i < holder_bus.childCount; i++)
         {
-            float a = Random.Range(0, 2) == 0 ? -5 : 5;
-            GameObject obj= Instantiate(place[0], new Vector3(transform.position.x+a,transform.position.y,transform.position.z+i*20), Quaternion.identity);
-            obj.transform.parent = transform;
+           
+            GameObject obj= Instantiate(place[0],holder_bus.GetChild(i).transform);
+            obj.transform.localPosition = new Vector3(-5, 0, 0);
+          
+        }
+
+        for (int i = 1; i < holder_thief.childCount; i++)
+        {
+
+            GameObject obj = Instantiate(place[0], holder_thief.GetChild(i).transform);
+            obj.transform.localPosition = new Vector3(-5, 0, 0);
+
         }
     }
 
