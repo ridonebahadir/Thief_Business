@@ -9,6 +9,7 @@ TagManager:
   - PrintArea
   - Door
   - Banner
+  - Police
   layers:
   - Default
   - TransparentFX

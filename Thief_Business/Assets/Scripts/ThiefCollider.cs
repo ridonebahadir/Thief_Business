@@ -6,7 +6,9 @@ using UnityEngine;
 
 public class ThiefCollider : MonoBehaviour
 {
-    public bool isMoneyHave = false;
+    public Animator businessAnim;
+    public BusinessManCollider businessManCollider;
+    public bool isMoneyHave = true;
     [Header("MONEY")]
     public GameManager gameManager;
 
@@ -73,7 +75,30 @@ public class ThiefCollider : MonoBehaviour
            
            
         }
+        if (other.tag=="Police")
+        {
+            if (isMoneyHave)
+            {
+                Invoke("StopLatePolice", 0.5f);
+                other.transform.GetChild(0).GetComponent<Animator>().applyRootMotion = true;
+                other.transform.GetChild(0).GetComponent<Animator>().SetBool("Punch", true);
+            }
+            else
+            {
+                other.transform.GetChild(0).GetComponent<Animator>().applyRootMotion = true;
+                other.transform.GetChild(0).GetComponent<Animator>().SetBool("SideStep", true);
+            }
+            
+        }
         
+    }
+    void StopLatePolice()
+    {
+        anim.applyRootMotion = true;
+        anim.SetBool("Fall", true);
+        businessAnim.SetBool("Sad", true);
+        businessManCollider.StopRun();
+        pathFollower.enabled = false;
     }
     void Late()
     {

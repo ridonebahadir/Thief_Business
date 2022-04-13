@@ -5,6 +5,7 @@ using UnityEngine;
 public class Spawn : MonoBehaviour
 {
     public GameObject[] businessPlace;
+    public GameObject police;
    
 
     public GameObject[] thiefPlace;
@@ -15,28 +16,30 @@ public class Spawn : MonoBehaviour
     public Transform holder_thief;
     void Start()
     {
+        int randomPoliceBusinessplace = Random.Range(1,holder_bus.childCount);
+        GameObject objPolice = Instantiate(police, holder_bus.GetChild(randomPoliceBusinessplace).transform);
+        objPolice.transform.localPosition = new Vector3(0, 4, 0);
+
+        int randomPoliceThiefplace = Random.Range(1, holder_thief.childCount);
+        GameObject objj = Instantiate(police, holder_thief.GetChild(randomPoliceThiefplace).transform);
+        objj.transform.localPosition = new Vector3(0, 4, 0);
+
         for (int i = 1; i < holder_bus.childCount; i++)
         {
-           
+            if (i==randomPoliceBusinessplace) i++;
+            if (i == holder_bus.childCount) break;
+            int random = Random.Range(0, businessPlace.Length);
             GameObject obj= Instantiate(businessPlace[0],holder_bus.GetChild(i).transform);
-           
-
-            
-
             obj.transform.localPosition = new Vector3(0, 4, 0);
           
         }
 
         for (int i = 1; i < holder_thief.childCount; i++)
         {
-
+            if (i == randomPoliceThiefplace) i++;
+            if (i == holder_thief.childCount) break;
+            int random = Random.Range(0,thiefPlace.Length);
             GameObject obj = Instantiate(thiefPlace[0], holder_thief.GetChild(i).transform);
-            
-
-            //int valueRandom = Random.Range(0, 2) == 0 ? -10 : 10;
-            //obj.transform.GetChild(0).GetComponent<Door>().value = valueRandom;
-            //obj.transform.GetChild(2).GetComponent<TextMesh>().text = valueRandom.ToString();
-
             obj.transform.localPosition = new Vector3(0, 4, 0);
 
         }
