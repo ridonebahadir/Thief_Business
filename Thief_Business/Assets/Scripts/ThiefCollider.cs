@@ -6,6 +6,11 @@ using UnityEngine;
 
 public class ThiefCollider : MonoBehaviour
 {
+    public Animator businessAnim;
+    public BusinessManCollider businessManCollider;
+    public bool isMoneyHave = true;
+    [Header("MONEY")]
+    public GameManager gameManager;
 
     [Header("PRÝNT AREA")]
     public GameObject wheelPanel;
@@ -31,24 +36,80 @@ public class ThiefCollider : MonoBehaviour
     {
         if (other.tag == "PrintArea")
         {
-            boxCollider.enabled = false;
-            Invoke("Late", 2f);
-            anim.SetBool("Victory", true);
-            projectile.touch = true;
-            projectile.isPrinter = true;
-            pathFollower.enabled = false;
+            if (gameManager.money<=0)
+            {
+                anim.SetBool("Sad", true);
+                businessManCollider.StopRun();
+                pathFollower.enabled = false;
+                businessAnim.SetBool("Sad", true);
+            }
+            else
+            {
+                boxCollider.enabled = false;
+                Invoke("Late", 2f);
+                anim.SetBool("Victory", true);
+                projectile.touch = true;
+                projectile.isPrinter = true;
+                pathFollower.enabled = false;
+            }
+            
             //wheelPanel.SetActive(true);
         }
-        if (other.tag=="Bank")
+        if (other.tag=="Door")
         {
+            if (isMoneyHave)
+            {
+                gameManager.money += other.GetComponent<Door>().value;
+                gameManager.moneyText.text = gameManager.money.ToString();
+                //int random = Random.Range(0,money.Length);
+                if (gameManager.money>0)
+                {
+                    Instantiate(moneyBurst, kucak.position, Quaternion.identity);
+                    for (int i = 0; i < 3; i++)
+                    {
+                        GameObject obj = Instantiate(money, kucak.position, Quaternion.identity);
+                        obj.transform.parent = kucak;
+                        projectile.listObj.Add(obj.transform);
+                    }
+                }
+                else
+                {
+                    foreach (var item in projectile.listObj)
+                    {
+                        Destroy(item.gameObject);
+                    }
+                    projectile.listObj.Clear();
 
-            //int random = Random.Range(0,money.Length);
-            Instantiate(moneyBurst, kucak.position, Quaternion.identity);
-            GameObject obj = Instantiate(money, kucak.position, Quaternion.identity);
-            obj.transform.parent = kucak;
-            projectile.listObj.Add(obj.transform);
+                }
+
+            }
+           
            
         }
+        if (other.tag=="Police")
+        {
+            if (isMoneyHave)
+            {
+                Invoke("StopLatePolice", 0.5f);
+                other.transform.GetChild(0).GetComponent<Animator>().applyRootMotion = true;
+                other.transform.GetChild(0).GetComponent<Animator>().SetBool("Punch", true);
+            }
+            else
+            {
+                other.transform.GetChild(0).GetComponent<Animator>().applyRootMotion = true;
+                other.transform.GetChild(0).GetComponent<Animator>().SetBool("SideStep", true);
+            }
+            
+        }
+        
+    }
+    void StopLatePolice()
+    {
+        anim.applyRootMotion = true;
+        anim.SetBool("Fall", true);
+        businessAnim.SetBool("Sad", true);
+        businessManCollider.StopRun();
+        pathFollower.enabled = false;
     }
     void Late()
     {

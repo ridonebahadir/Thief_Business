@@ -4,25 +4,43 @@ using UnityEngine;
 
 public class Spawn : MonoBehaviour
 {
-    public GameObject[] place;
+    public GameObject[] businessPlace;
+    public GameObject police;
+   
+
+    public GameObject[] thiefPlace;
+    
+
     public int countSpawn;
     public Transform holder_bus;
     public Transform holder_thief;
     void Start()
     {
+        int randomPoliceBusinessplace = Random.Range(1,holder_bus.childCount);
+        GameObject objPolice = Instantiate(police, holder_bus.GetChild(randomPoliceBusinessplace).transform);
+        objPolice.transform.localPosition = new Vector3(0, 4, 0);
+
+        int randomPoliceThiefplace = Random.Range(1, holder_thief.childCount);
+        GameObject objj = Instantiate(police, holder_thief.GetChild(randomPoliceThiefplace).transform);
+        objj.transform.localPosition = new Vector3(0, 4, 0);
+
         for (int i = 1; i < holder_bus.childCount; i++)
         {
-           
-            GameObject obj= Instantiate(place[0],holder_bus.GetChild(i).transform);
-            obj.transform.localPosition = new Vector3(-5, 0, 0);
+            if (i==randomPoliceBusinessplace) i++;
+            if (i == holder_bus.childCount) break;
+            int random = Random.Range(0, businessPlace.Length);
+            GameObject obj= Instantiate(businessPlace[0],holder_bus.GetChild(i).transform);
+            obj.transform.localPosition = new Vector3(0, 4, 0);
           
         }
 
         for (int i = 1; i < holder_thief.childCount; i++)
         {
-
-            GameObject obj = Instantiate(place[0], holder_thief.GetChild(i).transform);
-            obj.transform.localPosition = new Vector3(-5, 0, 0);
+            if (i == randomPoliceThiefplace) i++;
+            if (i == holder_thief.childCount) break;
+            int random = Random.Range(0,thiefPlace.Length);
+            GameObject obj = Instantiate(thiefPlace[0], holder_thief.GetChild(i).transform);
+            obj.transform.localPosition = new Vector3(0, 4, 0);
 
         }
     }

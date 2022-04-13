@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Human : MonoBehaviour
 {
+    public GameManager gameManager;
     public DynamicJoystick dynamicJoystick;
     public float speed;
     bool nextStep;
@@ -27,6 +28,12 @@ public class Human : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.tag=="Banner")
+        {
+            gameManager.money += 3;
+            other.gameObject.SetActive(false);
+            gameManager.moneyText.text = gameManager.money.ToString();
+        }
         if (other.tag=="Wheel")
         {
             anim.SetBool("Victory",true);

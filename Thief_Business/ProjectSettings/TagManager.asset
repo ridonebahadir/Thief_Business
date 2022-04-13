@@ -7,6 +7,9 @@ TagManager:
   - Bank
   - Wheel
   - PrintArea
+  - Door
+  - Banner
+  - Police
   layers:
   - Default
   - TransparentFX

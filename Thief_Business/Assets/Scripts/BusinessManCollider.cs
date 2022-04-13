@@ -7,11 +7,16 @@ using DG.Tweening;
 
 public class BusinessManCollider : MonoBehaviour
 {
+    public bool isMoneyHave = false;
+    public Animator thiefAnim;
+    [Header("MONEY")]
+    public GameManager gameManager;
     [Header("PRÝNT AREA")]
     public Move move;
     public Printer printer;
     public GameObject wheelPanel;
     private PathFollower pathFollower;
+    public PathFollower pathFollowerThief;
     public Transform targetPos;
     private BoxCollider boxCollider;
     public GameObject Human;
@@ -34,28 +39,75 @@ public class BusinessManCollider : MonoBehaviour
     {
         if (other.tag=="PrintArea")
         {
-            boxCollider.enabled = false;
-            Invoke("Late",2f);
-            anim.SetBool("Victory",true);
-            printer.enabled = true;
-            projectile.touch = true;
-            projectile.isPrinter = true;
-            move.enabled = false;
-            pathFollower.enabled = false;
+            if (gameManager.money<=0)
+            {
+                anim.SetBool("Sad", true);
+                thiefAnim.SetBool("Sad", true);
+            }
+            else
+            {
+                Invoke("Late", 2f);
+               
+                anim.SetBool("Victory", true);
+                printer.enabled = true;
+                projectile.touch = true;
+                projectile.isPrinter = true;
+            }
+            StopRun();
+
             //wheelPanel.SetActive(true);
         }
 
-        if (other.tag=="Bank")
+        if (other.tag=="Door")
         {
-
-            //int random = Random.Range(0,money.Length);
-            Instantiate(moneyBurst, kucak.position, Quaternion.identity);
-            GameObject obj = Instantiate(money, kucak.position, Quaternion.identity);
-            obj.transform.parent = kucak;
-            projectile.listObj.Add(obj.transform);
+            if (isMoneyHave)
+            {
+                gameManager.money += other.GetComponent<Door>().value;
+                gameManager.moneyText.text = gameManager.money.ToString();
+                //int random = Random.Range(0,money.Length);
+                if (gameManager.money>0)
+                {
+                    Instantiate(moneyBurst, kucak.position, Quaternion.identity);
+                    for (int i = 0; i <3; i++)
+                    {
+                        GameObject obj = Instantiate(money, kucak.position, Quaternion.identity);
+                        obj.transform.parent = kucak;
+                        projectile.listObj.Add(obj.transform);
+                    }
+                  
+                }
+                else
+                {
+                    foreach (var item in projectile.listObj)
+                    {
+                        Destroy(item.gameObject);
+                    }
+                    projectile.listObj.Clear();
+                   
+                }
+               
+            }
+            
 
         }
+        if (other.tag == "Police")
+        {
+            if (isMoneyHave)
+            {
+                police = true;
+                Invoke("StopRun", 0.5f);
+                other.transform.GetChild(0).GetComponent<Animator>().applyRootMotion = true;
+                other.transform.GetChild(0).GetComponent<Animator>().SetBool("Punch", true);
+            }
+            else
+            {
+                other.transform.GetChild(0).GetComponent<Animator>().applyRootMotion = true;
+                other.transform.GetChild(0).GetComponent<Animator>().SetBool("SideStep", true);
+            }
+        }
+
     }
+   
     void Late()
     {
         projectile.enabled = false;
@@ -71,4 +123,21 @@ public class BusinessManCollider : MonoBehaviour
         gameObject.SetActive(false);
 
     }
+    bool police;
+    public void StopRun()
+    {
+        if (police)
+        {
+            anim.applyRootMotion = true;
+            anim.SetBool("Fall",true);
+            thiefAnim.SetBool("Sad", true);
+            pathFollowerThief.enabled = false;
+        }
+       
+        boxCollider.enabled = false;
+        move.enabled = false;
+        pathFollower.enabled = false;
+        
+    }
+   
 }
