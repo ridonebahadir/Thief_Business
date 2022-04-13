@@ -36,7 +36,7 @@ public class Printer : MonoBehaviour
             //float randomFloatFromNumbers = numbers[randomIndex];
 
             targetPos.localPosition = new Vector3(random,0, i+10);
-            banner.transform.DOJump(new Vector3(targetPos.position.x, targetPos.position.y, targetPos.position.z), 15, 1, 0.2f, false);
+            banner.transform.DOJump(new Vector3(targetPos.position.x, targetPos.position.y, targetPos.position.z), 15, 1, 0.8f, false);
             yield return new WaitForSeconds(0.25f);
         }
            

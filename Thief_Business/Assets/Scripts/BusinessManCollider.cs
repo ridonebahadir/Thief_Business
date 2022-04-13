@@ -95,7 +95,7 @@ public class BusinessManCollider : MonoBehaviour
             if (isMoneyHave)
             {
                 police = true;
-                Invoke("StopRun", 0.5f);
+                Invoke("StopRun", 0.25f);
                 other.transform.GetChild(0).GetComponent<Animator>().applyRootMotion = true;
                 other.transform.GetChild(0).GetComponent<Animator>().SetBool("Punch", true);
             }

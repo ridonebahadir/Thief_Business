@@ -90,7 +90,7 @@ public class ThiefCollider : MonoBehaviour
         {
             if (isMoneyHave)
             {
-                Invoke("StopLatePolice", 0.5f);
+                Invoke("StopLatePolice", 0.25f);
                 other.transform.GetChild(0).GetComponent<Animator>().applyRootMotion = true;
                 other.transform.GetChild(0).GetComponent<Animator>().SetBool("Punch", true);
             }
