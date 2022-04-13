@@ -39,14 +39,22 @@ public class BusinessManCollider : MonoBehaviour
     {
         if (other.tag=="PrintArea")
         {
-            
-            Invoke("Late",2f);
+            if (gameManager.money<=0)
+            {
+                anim.SetBool("Sad", true);
+                thiefAnim.SetBool("Sad", true);
+            }
+            else
+            {
+                Invoke("Late", 2f);
+               
+                anim.SetBool("Victory", true);
+                printer.enabled = true;
+                projectile.touch = true;
+                projectile.isPrinter = true;
+            }
             StopRun();
-            anim.SetBool("Victory",true);
-            printer.enabled = true;
-            projectile.touch = true;
-            projectile.isPrinter = true;
-           
+
             //wheelPanel.SetActive(true);
         }
 

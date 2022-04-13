@@ -36,12 +36,23 @@ public class ThiefCollider : MonoBehaviour
     {
         if (other.tag == "PrintArea")
         {
-            boxCollider.enabled = false;
-            Invoke("Late", 2f);
-            anim.SetBool("Victory", true);
-            projectile.touch = true;
-            projectile.isPrinter = true;
-            pathFollower.enabled = false;
+            if (gameManager.money<=0)
+            {
+                anim.SetBool("Sad", true);
+                businessManCollider.StopRun();
+                pathFollower.enabled = false;
+                businessAnim.SetBool("Sad", true);
+            }
+            else
+            {
+                boxCollider.enabled = false;
+                Invoke("Late", 2f);
+                anim.SetBool("Victory", true);
+                projectile.touch = true;
+                projectile.isPrinter = true;
+                pathFollower.enabled = false;
+            }
+            
             //wheelPanel.SetActive(true);
         }
         if (other.tag=="Door")
