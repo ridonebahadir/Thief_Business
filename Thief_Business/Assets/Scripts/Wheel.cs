@@ -11,6 +11,9 @@ public class Wheel : MonoBehaviour
     public Animator anim;
     public RectTransform rectTransform;
     public GameObject whellPanel;
+    public Human human;
+    public DynamicJoystick dynamicJoystick;
+    public Animator humanAnim;
     private void Start()
     {
         
@@ -38,5 +41,8 @@ public class Wheel : MonoBehaviour
     void Late()
     {
         whellPanel.SetActive(false);
+        human.map = true;
+        dynamicJoystick.AxisOptions = AxisOptions.Both;
+        humanAnim.SetBool("Stop",true);
     }
 }

@@ -46,9 +46,10 @@ public class BusinessManCollider : MonoBehaviour
             }
             else
             {
-                Invoke("Late", 2f);
-               
+                Invoke("Late", 3f);
+              
                 anim.SetBool("Victory", true);
+                projectile.speed = 10;
                 printer.enabled = true;
                 projectile.touch = true;
                 projectile.isPrinter = true;
@@ -105,6 +106,19 @@ public class BusinessManCollider : MonoBehaviour
                 other.transform.GetChild(0).GetComponent<Animator>().SetBool("SideStep", true);
             }
         }
+        if (other.tag=="Money")
+        {
+            isMoneyHave = true;
+            gameManager.money += 5;
+            gameManager.moneyText.text = gameManager.money.ToString();
+            projectile.throwObj = false;
+            projectile.touch = true;
+            other.gameObject.SetActive(false);
+            GameObject obj = Instantiate(money, kucak.position, Quaternion.identity);
+            obj.transform.parent = kucak;
+            projectile.listObj.Add(obj.transform);
+            
+        }
 
     }
    
@@ -112,7 +126,7 @@ public class BusinessManCollider : MonoBehaviour
     {
         projectile.enabled = false;
         anim.SetBool("Jump", true);
-        transform.DOJump(targetPos.position, 15, 1, 3f, false).OnComplete(() => End());
+        transform.DOJump(targetPos.position, 15, 1, 1.5f, false).OnComplete(() => End()).SetEase(Ease.InOutQuad);
     }
     void End()
     {
