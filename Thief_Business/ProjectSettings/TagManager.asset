@@ -12,6 +12,7 @@ TagManager:
   - Police
   - Money
   - Human
+  - MoneyStash
   layers:
   - Default
   - TransparentFX

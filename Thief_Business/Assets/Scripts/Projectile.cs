@@ -43,8 +43,8 @@ public class Projectile : MonoBehaviour
 	}
     void Update()
 	{
-		debugSpeed = (speed * (listObj.Count * 0.15f));
-		Debug.Log("Debug Speed = "+ debugSpeed);
+		
+		
 		
         if (dynamicJoystick.Horizontal<0)
         {
@@ -182,7 +182,7 @@ public class Projectile : MonoBehaviour
 	/// Quaternion that rotates +X to align with forward
 	/// 
 
-	float debugSpeed;
+	
 	float baseY;
 	float nextX;
 	void MoveOtherSide(float x0,float x1,float height)
@@ -191,6 +191,7 @@ public class Projectile : MonoBehaviour
 		float dist = x1 - x0;
 		for (int i = 0; i < listObj.Count; i++)
         {
+			
           
             if (throwObj)
             {
@@ -208,7 +209,9 @@ public class Projectile : MonoBehaviour
 			listObj[i].transform.position = nextPos;
 		}
 		
+		
 	}
+	
 	static Quaternion LookAt2D(Vector2 forward)
 	{
 		return Quaternion.Euler(0, 0, Mathf.Atan2(forward.y, forward.x) * Mathf.Rad2Deg);

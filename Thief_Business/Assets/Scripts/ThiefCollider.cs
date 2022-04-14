@@ -60,6 +60,7 @@ public class ThiefCollider : MonoBehaviour
         {
             if (isMoneyHave)
             {
+               
                 int value = other.GetComponent<Door>().value;
                 gameManager.money += value;
                 gameManager.moneyText.text = gameManager.money.ToString();
@@ -68,6 +69,7 @@ public class ThiefCollider : MonoBehaviour
                 {
                     if (value > 0)
                     {
+                        Vibration.Vibrate(100);
                         Instantiate(moneyBurst, kucak.position, Quaternion.identity);
                         for (int i = 0; i < 3; i++)
                         {
@@ -76,10 +78,15 @@ public class ThiefCollider : MonoBehaviour
                             projectile.listObj.Add(obj.transform);
                         }
                     }
+                    else
+                    {
+                        Vibration.Vibrate(1000);
+                    }
                     
                 }
                 else
                 {
+                   
                     foreach (var item in projectile.listObj)
                     {
                         Destroy(item.gameObject);
@@ -96,6 +103,7 @@ public class ThiefCollider : MonoBehaviour
         {
             if (isMoneyHave)
             {
+                Vibration.Vibrate(1000);
                 Invoke("StopLatePolice", 0.25f);
                 other.transform.GetChild(0).GetComponent<Animator>().applyRootMotion = true;
                 other.transform.GetChild(0).GetComponent<Animator>().SetBool("Punch", true);

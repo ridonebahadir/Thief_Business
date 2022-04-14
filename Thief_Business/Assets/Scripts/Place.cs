@@ -19,15 +19,17 @@ public class Place : MonoBehaviour
     bool pay;
     bool onePlayTÝme;
     int remainingMoney;
+    public int id;
     private void Start()
     {
+        
         color = GetComponent<Renderer>();
         for (int i = 0; i < upgradeCost.Length; i++)
         {
             startCost += upgradeCost[i];
         }
         
-        costBuild = PlayerPrefs.GetInt("CostBuild", startCost);
+        costBuild = PlayerPrefs.GetInt("CostBuild"+id, startCost);
        
         UpGrade();
         
@@ -85,15 +87,19 @@ public class Place : MonoBehaviour
     void Pay()
     {
 
-        
-        
-            
-            costBuild -= updateCost;
-            textBool = true;
-            DOTween.To(() => gameManager.money, x => gameManager.money = x, remainingMoney, 3f)
-           .OnComplete(() => End());
+
 
         
+        costBuild -= updateCost;
+
+        DOTween.To(() => updateCost, x => updateCost = x, 0, 3f)
+        .OnUpdate(() => { valueUpgradeText.text = updateCost.ToString(); Vibration.Vibrate(50); });
+
+        textBool = true;
+            DOTween.To(() => gameManager.money, x => gameManager.money = x, remainingMoney, 3f)
+           .OnComplete(() => End());
+            ;
+
         onePlayTÝme = true;
     }
     void End()
@@ -104,7 +110,7 @@ public class Place : MonoBehaviour
         textBool = false;
         UpGrade();
 
-        PlayerPrefs.SetInt("CostBuild", costBuild);
+        PlayerPrefs.SetInt("CostBuild" + id, costBuild);
     }
    
     void UpGrade()
@@ -132,5 +138,7 @@ public class Place : MonoBehaviour
             transform.parent.gameObject.SetActive(false);
         }
         valueUpgradeText.text = updateCost.ToString();
+
+        
     }
 }
