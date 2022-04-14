@@ -63,18 +63,23 @@ public class BusinessManCollider : MonoBehaviour
         {
             if (isMoneyHave)
             {
-                gameManager.money += other.GetComponent<Door>().value;
+                int value = other.GetComponent<Door>().value;
+                gameManager.money += value;
                 gameManager.moneyText.text = gameManager.money.ToString();
                 //int random = Random.Range(0,money.Length);
                 if (gameManager.money>0)
                 {
-                    Instantiate(moneyBurst, kucak.position, Quaternion.identity);
-                    for (int i = 0; i <3; i++)
+                    if (value>0)
                     {
-                        GameObject obj = Instantiate(money, kucak.position, Quaternion.identity);
-                        obj.transform.parent = kucak;
-                        projectile.listObj.Add(obj.transform);
+                        Instantiate(moneyBurst, kucak.position, Quaternion.identity);
+                        for (int i = 0; i < 3; i++)
+                        {
+                            GameObject obj = Instantiate(money, kucak.position, Quaternion.identity);
+                            obj.transform.parent = kucak;
+                            projectile.listObj.Add(obj.transform);
+                        }
                     }
+                   
                   
                 }
                 else

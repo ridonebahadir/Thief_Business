@@ -104,7 +104,7 @@ public class Projectile : MonoBehaviour
 				Invoke("LateBusiness", 0.65f);
 				float x0 = startPos.position.x;
 				float x1 = targetPos.position.x;
-				MoveOtherSide(x0, x1);
+				MoveOtherSide(x0, x1,0.5f);
 			}
 			else
 			{
@@ -119,7 +119,7 @@ public class Projectile : MonoBehaviour
 				Invoke("LateThief", 0.65f);
 				float x0 = startPos.position.x;
 				float x1 = targetPos.position.x;
-				MoveOtherSide(x0, x1);
+				MoveOtherSide(x0, x1,0.5f);
 
 			}
 
@@ -134,7 +134,7 @@ public class Projectile : MonoBehaviour
             targetPos = Printer;
             float x0 = startPos.position.x;
             float x1 = targetPos.position.x;
-            MoveOtherSide(x0, x1);
+            MoveOtherSide(x0, x1,0);
         }
 
 
@@ -183,14 +183,25 @@ public class Projectile : MonoBehaviour
 	/// 
 
 	float debugSpeed;
-	void MoveOtherSide(float x0,float x1)
+	float baseY;
+	float nextX;
+	void MoveOtherSide(float x0,float x1,float height)
     {
         
 		float dist = x1 - x0;
 		for (int i = 0; i < listObj.Count; i++)
         {
-           float nextX = Mathf.MoveTowards(listObj[i].transform.position.x, x1, (speed*(listObj.Count*0.15f) -  i ) * Time.deltaTime);
-			float baseY = Mathf.Lerp(listObj[i].transform.position.y, targetPos.position.y+i*0.5f, (nextX - x0) / dist);
+          
+            if (throwObj)
+            {
+				 nextX = Mathf.MoveTowards(listObj[i].transform.position.x, x1, (speed * (listObj.Count * 0.15f) + i) * Time.deltaTime);
+				baseY = Mathf.Lerp(listObj[i].transform.position.y, targetPos.position.y + ((listObj.Count - i) * height), (nextX - x0) / dist);
+			}
+            else
+            {
+				 nextX = Mathf.MoveTowards(listObj[i].transform.position.x, x1, (speed * (listObj.Count * 0.15f) - i) * Time.deltaTime);
+				baseY = Mathf.Lerp(listObj[i].transform.position.y, targetPos.position.y + (i * height), (nextX - x0) / dist);
+			}
 			float arc = arcHeight * (nextX - x0) * (nextX - x1) / (-0.25f * dist * dist);
 			nextPos = new Vector3(nextX, baseY + arc, (listObj[i].transform.position.z));
 			//objs[i].transform.rotation = LookAt2D(nextPos - transform.position);

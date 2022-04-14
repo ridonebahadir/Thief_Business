@@ -23,7 +23,7 @@ public class Human : MonoBehaviour
     {
         if (!nextStep)
         {
-            transform.DOMove(transform.position + new Vector3(1 * dynamicJoystick.Horizontal * speed * 30 * Time.deltaTime, 0, 30 * speed * Time.deltaTime), 2f).SetEase(Ease.OutSine);
+            transform.DOMove(transform.position + new Vector3( dynamicJoystick.Horizontal * speed * Time.deltaTime, 0, speed * Time.deltaTime), 0.1f);
 
         }
         if (map)
@@ -63,6 +63,7 @@ public class Human : MonoBehaviour
         }
         if (other.tag=="Wheel")
         {
+            other.gameObject.SetActive(false);
             anim.SetBool("Victory",true);
             nextStep = true;
             wheelPanel.SetActive(true);

@@ -11,6 +11,7 @@ TagManager:
   - Banner
   - Police
   - Money
+  - Human
   layers:
   - Default
   - TransparentFX
