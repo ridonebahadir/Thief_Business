@@ -13,6 +13,7 @@ TagManager:
   - Money
   - Human
   - MoneyStash
+  - Border
   layers:
   - Default
   - TransparentFX

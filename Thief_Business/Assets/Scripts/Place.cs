@@ -2,9 +2,11 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Place : MonoBehaviour
 {
+    public Human human;
     private int costBuild;
     private int startCost;
     
@@ -13,16 +15,19 @@ public class Place : MonoBehaviour
     private int updateCost;
     public int[] upgradeCost;
     private Renderer color;
-    public TextMesh valueUpgradeText;
-
+    private TextMesh valueUpgradeText;
+    
     float count;
     bool pay;
     bool onePlayTÝme;
     int remainingMoney;
     public int id;
+
+    public Transform voteStates;
+    
     private void Start()
     {
-        
+        valueUpgradeText = transform.parent.GetChild(1).GetComponent<TextMesh>();
         color = GetComponent<Renderer>();
         for (int i = 0; i < upgradeCost.Length; i++)
         {
@@ -32,11 +37,13 @@ public class Place : MonoBehaviour
         costBuild = PlayerPrefs.GetInt("CostBuild"+id, startCost);
        
         UpGrade();
-        
+       
     }
     bool textBool;
     private void Update()
     {
+       
+
         if (textBool)
         {
             gameManager.moneyText.text = gameManager.money.ToString();
@@ -46,15 +53,19 @@ public class Place : MonoBehaviour
             count += 1 * Time.deltaTime;
             if (count>2)
             {
+               
                 if (!onePlayTÝme)
                 {
+                    
                     Pay();
+
                 }
                 
             }
         }
+        
     }
-    
+   
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag=="Human")
@@ -65,6 +76,8 @@ public class Place : MonoBehaviour
                 color.material.color = Color.green;
                 onePlayTÝme = false;
                 pay = true;
+                voteStates.GetComponent<VotesReceived>().amount = PlayerPrefs.GetFloat("Vote" + id, 0f);
+                
             }
             else
             {
@@ -86,25 +99,32 @@ public class Place : MonoBehaviour
     }
     void Pay()
     {
-
-
-
+        human.map = false;
+        voteStates.GetComponent<VotesReceived>().fill = true;
         
+
         costBuild -= updateCost;
 
         DOTween.To(() => updateCost, x => updateCost = x, 0, 3f)
-        .OnUpdate(() => { valueUpgradeText.text = updateCost.ToString(); Vibration.Vibrate(50); });
+        .OnUpdate(() => { 
+            valueUpgradeText.text = updateCost.ToString(); 
+            Vibration.Vibrate(50);
+            
+        });
 
         textBool = true;
             DOTween.To(() => gameManager.money, x => gameManager.money = x, remainingMoney, 3f)
            .OnComplete(() => End());
-            ;
+            
 
         onePlayTÝme = true;
     }
     void End()
     {
-
+        human.map = true;
+        voteStates.GetComponent<VotesReceived>().fill = false;
+        voteStates.GetComponent<VotesReceived>().elapsedTime = 0;
+        voteStates.GetComponent<VotesReceived>().AgainRun();
 
         color.material.color = Color.red;
         textBool = false;

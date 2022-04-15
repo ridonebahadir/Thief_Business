@@ -13,6 +13,11 @@ public class Human : MonoBehaviour
     public Animator anim;
     public bool map;
     public Transform humanCharacter;
+    [Header("BORDER")]
+    public float minX;
+    public float maxX;
+    public float minZ;
+    public float maxZ;
     void Start()
     {
         anim = GetComponent<Animator>();
@@ -21,6 +26,12 @@ public class Human : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Vector3 newPosition = transform.localPosition;
+        newPosition.x = Mathf.Clamp(newPosition.x, minX, maxX);
+        newPosition.z = Mathf.Clamp(newPosition.z, minZ, maxZ);
+        transform.localPosition = newPosition;
+
+
         if (!nextStep)
         {
             transform.DOMove(transform.position + new Vector3( dynamicJoystick.Horizontal * speed * Time.deltaTime, 0, speed * Time.deltaTime), 0.1f);
@@ -35,6 +46,9 @@ public class Human : MonoBehaviour
             movementDirection.Normalize();
 
             transform.Translate(movementDirection * speed * Time.deltaTime, Space.World);
+
+            
+
 
             if (movementDirection != Vector3.zero)
             {
@@ -67,7 +81,12 @@ public class Human : MonoBehaviour
             anim.SetBool("Victory",true);
             nextStep = true;
             wheelPanel.SetActive(true);
+            minX = -50;
+            maxX = 50;
+            minZ =98;
             
         }
+       
     }
+    
 }
