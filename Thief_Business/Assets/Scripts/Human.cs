@@ -55,7 +55,7 @@ public class Human : MonoBehaviour
                 Quaternion toRotation = Quaternion.LookRotation(movementDirection, Vector3.up);
                 humanCharacter.transform.rotation = Quaternion.RotateTowards(humanCharacter.transform.rotation, toRotation, 720 * Time.deltaTime);
             }
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButton(0))
             {
                 anim.SetBool("Walk",true);
             }
@@ -83,7 +83,7 @@ public class Human : MonoBehaviour
             wheelPanel.SetActive(true);
             minX = -50;
             maxX = 50;
-            minZ =98;
+            minZ =85;
             
         }
        

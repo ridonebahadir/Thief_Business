@@ -15,7 +15,7 @@ public class Wheel : MonoBehaviour
     public DynamicJoystick dynamicJoystick;
     public Animator humanAnim;
     public Transform mainCamera;
-   
+    public GameObject done;
     public void WheelButton()
     {
        
@@ -44,6 +44,7 @@ public class Wheel : MonoBehaviour
     }
     void End()
     {
+        done.SetActive(true);
         Destroy(whellPanel.gameObject);
     }
 }

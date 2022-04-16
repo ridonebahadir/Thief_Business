@@ -104,6 +104,7 @@ public class ThiefCollider : MonoBehaviour
             if (isMoneyHave)
             {
                 Vibration.Vibrate(1000);
+
                 Invoke("StopLatePolice", 0.25f);
                 other.transform.GetChild(0).GetComponent<Animator>().applyRootMotion = true;
                 other.transform.GetChild(0).GetComponent<Animator>().SetBool("Punch", true);
@@ -130,11 +131,18 @@ public class ThiefCollider : MonoBehaviour
     }
     void StopLatePolice()
     {
+        foreach (var item in projectile.listObj)
+        {
+            Destroy(item.gameObject);
+        }
+        projectile.listObj.Clear();
+        
         anim.applyRootMotion = true;
         anim.SetBool("Fall", true);
         businessAnim.SetBool("Sad", true);
         businessManCollider.StopRun();
         pathFollower.enabled = false;
+        Instantiate(moneyBurst, transform.position + new Vector3(0, 5, 0), Quaternion.identity);
     }
     void Late()
     {

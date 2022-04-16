@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 19857444}
   - component: {fileID: 19945702}
   m_Layer: 0
-  m_Name: ATMSpray
+  m_Name: ATMSpray 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

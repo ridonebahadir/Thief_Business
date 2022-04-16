@@ -154,10 +154,17 @@ public class BusinessManCollider : MonoBehaviour
     {
         if (police)
         {
+            foreach (var item in projectile.listObj)
+            {
+                Destroy(item.gameObject);
+            }
+            projectile.listObj.Clear();
+           
             anim.applyRootMotion = true;
             anim.SetBool("Fall",true);
             thiefAnim.SetBool("Sad", true);
             pathFollowerThief.enabled = false;
+            Instantiate(moneyBurst, transform.position + new Vector3(0, 5, 0), Quaternion.identity);
         }
        
         boxCollider.enabled = false;

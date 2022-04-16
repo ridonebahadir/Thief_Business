@@ -5,8 +5,7 @@ using UnityEngine;
 public class Move : MonoBehaviour
 {
     public float speed;
-    public Transform player;
-    public Transform loook;
+
     void Start()
     {
         

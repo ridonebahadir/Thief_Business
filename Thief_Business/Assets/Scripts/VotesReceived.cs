@@ -32,7 +32,7 @@ public class VotesReceived : MonoBehaviour
     {
         amount = PlayerPrefs.GetFloat("Vote" + id, 0f);
 
-        float duration = 3f;
+        float duration = 100f;
            
 
         while (elapsedTime < duration)
