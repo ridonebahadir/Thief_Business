@@ -12,9 +12,17 @@ namespace PathCreation.Examples {
 
         const float minSpacing = .1f;
 
+        public Transform LEkPoint;
+
+
+        private void Start()
+        {
+            LEkPoint.transform.position = holder.transform.GetChild(0).position;
+        }
         void Generate () {
             if (pathCreator != null && prefab != null && holder != null) {
                 DestroyObjects ();
+               
 
                 VertexPath path = pathCreator.path;
 
@@ -22,6 +30,7 @@ namespace PathCreation.Examples {
                 float dst = 0;
 
                 while (dst < path.length) {
+                   
                     Vector3 point = path.GetPointAtDistance (dst);
                     Quaternion rot = Quaternion.Euler(0,0,0);
                     Instantiate (prefab, point, rot, holder.transform);

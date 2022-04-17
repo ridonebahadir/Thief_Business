@@ -70,7 +70,7 @@ public class ThiefCollider : MonoBehaviour
                     if (value > 0)
                     {
                         Vibration.Vibrate(100);
-                        Instantiate(moneyBurst, kucak.position, Quaternion.identity);
+                        //Instantiate(moneyBurst, kucak.position, Quaternion.identity);
                         for (int i = 0; i < 3; i++)
                         {
                             GameObject obj = Instantiate(money, kucak.position, Quaternion.identity);
