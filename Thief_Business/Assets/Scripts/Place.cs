@@ -21,7 +21,7 @@ public class Place : MonoBehaviour
     
     float count;
     bool pay;
-    bool onePlayTime;
+    bool onePlayTÝme;
     int remainingMoney;
     public int id;
 
@@ -57,7 +57,7 @@ public class Place : MonoBehaviour
             if (count>2)
             {
                
-                if (!onePlayTime)
+                if (!onePlayTÝme)
                 {
                     
                     Pay();
@@ -77,7 +77,7 @@ public class Place : MonoBehaviour
             if (remainingMoney > 0)
             {
                 color.material.color = Color.green;
-                onePlayTime = false;
+                onePlayTÝme = false;
                 pay = true;
                 voteStates.GetComponent<VotesReceived>().amount = PlayerPrefs.GetFloat("Vote" + id, 0f);
                 
@@ -120,9 +120,9 @@ public class Place : MonoBehaviour
         textBool = true;
             DOTween.To(() => gameManager.money, x => gameManager.money = x, remainingMoney, 6f)
            .OnComplete(() => End());
+            
 
-
-        onePlayTime = true;
+        onePlayTÝme = true;
     }
     void End()
     {
