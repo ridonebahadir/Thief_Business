@@ -90,7 +90,7 @@ Material:
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
-    - _OutlineWidth: 0.0169
+    - _OutlineWidth: 0.1
     - _Parallax: 0.02
     - _RIM: 0
     - _RimPower: 0
@@ -118,3 +118,4 @@ Material:
     - _RimColor: {r: 0, g: 0, b: 0, a: 1}
     - _SColor: {r: 0.67886823, g: 0.3915094, b: 1, a: 1}
     - _SpColor: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []

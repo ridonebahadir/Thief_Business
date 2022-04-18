@@ -10,6 +10,10 @@ TagManager:
   - Door
   - Banner
   - Police
+  - Money
+  - Human
+  - MoneyStash
+  - Border
   layers:
   - Default
   - TransparentFX

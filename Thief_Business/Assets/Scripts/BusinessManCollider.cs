@@ -46,9 +46,10 @@ public class BusinessManCollider : MonoBehaviour
             }
             else
             {
-                Invoke("Late", 2f);
-               
+                Invoke("Late", 3f);
+              
                 anim.SetBool("Victory", true);
+                projectile.speed = 10;
                 printer.enabled = true;
                 projectile.touch = true;
                 projectile.isPrinter = true;
@@ -62,22 +63,33 @@ public class BusinessManCollider : MonoBehaviour
         {
             if (isMoneyHave)
             {
-                gameManager.money += other.GetComponent<Door>().value;
+               
+                int value = other.GetComponent<Door>().value;
+                gameManager.money += value;
                 gameManager.moneyText.text = gameManager.money.ToString();
                 //int random = Random.Range(0,money.Length);
                 if (gameManager.money>0)
                 {
-                    Instantiate(moneyBurst, kucak.position, Quaternion.identity);
-                    for (int i = 0; i <3; i++)
+                    if (value>0)
                     {
-                        GameObject obj = Instantiate(money, kucak.position, Quaternion.identity);
-                        obj.transform.parent = kucak;
-                        projectile.listObj.Add(obj.transform);
+                        Vibration.Vibrate(100);
+                        //Instantiate(moneyBurst, kucak.position, Quaternion.identity);
+                        for (int i = 0; i < 3; i++)
+                        {
+                            GameObject obj = Instantiate(money, kucak.position, Quaternion.identity);
+                            obj.transform.parent = kucak;
+                            projectile.listObj.Add(obj.transform);
+                        }
                     }
-                  
+                    else
+                    {
+                        Vibration.Vibrate(1000);
+                    }
+
                 }
                 else
                 {
+                    
                     foreach (var item in projectile.listObj)
                     {
                         Destroy(item.gameObject);
@@ -94,6 +106,7 @@ public class BusinessManCollider : MonoBehaviour
         {
             if (isMoneyHave)
             {
+                Vibration.Vibrate(1000);
                 police = true;
                 Invoke("StopRun", 0.25f);
                 other.transform.GetChild(0).GetComponent<Animator>().applyRootMotion = true;
@@ -105,6 +118,19 @@ public class BusinessManCollider : MonoBehaviour
                 other.transform.GetChild(0).GetComponent<Animator>().SetBool("SideStep", true);
             }
         }
+        if (other.tag=="Money")
+        {
+            isMoneyHave = true;
+            gameManager.money += 5;
+            gameManager.moneyText.text = gameManager.money.ToString();
+            projectile.throwObj = false;
+            projectile.touch = true;
+            other.gameObject.SetActive(false);
+            GameObject obj = Instantiate(money, kucak.position, Quaternion.identity);
+            obj.transform.parent = kucak;
+            projectile.listObj.Add(obj.transform);
+            
+        }
 
     }
    
@@ -112,7 +138,7 @@ public class BusinessManCollider : MonoBehaviour
     {
         projectile.enabled = false;
         anim.SetBool("Jump", true);
-        transform.DOJump(targetPos.position, 15, 1, 3f, false).OnComplete(() => End());
+        transform.DOJump(targetPos.position, 15, 1, 1.5f, false).OnComplete(() => End()).SetEase(Ease.InOutQuad);
     }
     void End()
     {
@@ -128,10 +154,17 @@ public class BusinessManCollider : MonoBehaviour
     {
         if (police)
         {
+            foreach (var item in projectile.listObj)
+            {
+                Destroy(item.gameObject);
+            }
+            projectile.listObj.Clear();
+           
             anim.applyRootMotion = true;
             anim.SetBool("Fall",true);
             thiefAnim.SetBool("Sad", true);
             pathFollowerThief.enabled = false;
+            Instantiate(moneyBurst, transform.position + new Vector3(0, 5, 0), Quaternion.identity);
         }
        
         boxCollider.enabled = false;
