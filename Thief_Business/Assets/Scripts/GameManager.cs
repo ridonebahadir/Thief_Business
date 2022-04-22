@@ -51,11 +51,21 @@ public class GameManager : MonoBehaviour
     public void StartButton()
     {
         startPanel.gameObject.SetActive(false);
+        
+        thiefAnim.SetBool("Run",true);
+        thiefAnim.applyRootMotion = true;
+        businessAnim.SetBool("Run",true);
+        businessAnim.applyRootMotion = true;
+        mainCamera.transform.DOLocalMove(new Vector3(0, 15, -30), 2f);
+        mainCamera.transform.DORotate(new Vector3(0, 0, 0), 2f);
+        Invoke("RootMotion",2f);
+    }
+   void RootMotion()
+    {
+        businessAnim.applyRootMotion = false;
+        thiefAnim.applyRootMotion = false;
         thiefFollow.enabled = true;
         businessManFollow.enabled = true;
         move.enabled = true;
-        thiefAnim.SetBool("Run",true);
-        businessAnim.SetBool("Run",true);
     }
-   
 }

@@ -36,7 +36,7 @@ public class Wheel : MonoBehaviour
         human.map = true;
         dynamicJoystick.AxisOptions = AxisOptions.Both;
         mainCamera.transform.DOLocalMove(new Vector3(0,25,-10), 1.5f).OnComplete(() => End());
-        mainCamera.transform.DOLocalRotate(new Vector3(30,0,0), 1.5f);
+        mainCamera.transform.DOLocalRotate(new Vector3(45,0,0), 1.5f);
 
        
        

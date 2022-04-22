@@ -135,9 +135,17 @@ public class Projectile : MonoBehaviour
             float x0 = startPos.position.x;
             float x1 = targetPos.position.x;
             MoveOtherSide(x0, x1,0);
+			Invoke("Remove",1f);
         }
 
 
+    }
+	void Remove()
+    {
+        foreach (var item in listObj)
+        {
+			item.gameObject.SetActive(false);
+        }
     }
 	void LateThief()
     {
@@ -207,6 +215,7 @@ public class Projectile : MonoBehaviour
 			nextPos = new Vector3(nextX, baseY + arc, (listObj[i].transform.position.z));
 			//objs[i].transform.rotation = LookAt2D(nextPos - transform.position);
 			listObj[i].transform.position = nextPos;
+           
 		}
 		
 		

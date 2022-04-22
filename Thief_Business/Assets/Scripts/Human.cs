@@ -14,12 +14,11 @@ public class Human : MonoBehaviour
     public bool map;
     public Transform humanCharacter;
     [Header("BORDER")]
-    private float minX = -10;
-    private float maxX = 10;
-     float minZ;
-    float maxZ = 500;
-    bool border;
-    bool moveFirst = true;
+    public float minX = -10;
+    public float maxX = 10;
+    public float minZ;
+    public float maxZ = 500;
+   
     void Start()
     {
         anim = GetComponent<Animator>();
@@ -29,20 +28,12 @@ public class Human : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (border)
-        {
-            Vector3 newPosition = transform.localPosition;
-            newPosition.x = Mathf.Clamp(newPosition.x, minX, maxX);
-            newPosition.z = Mathf.Clamp(newPosition.z, minZ, maxZ);
-            transform.localPosition = newPosition;
-        }
-        if (moveFirst)
-        {
-            Vector3 newPosition = transform.localPosition;
-            newPosition.x = Mathf.Clamp(newPosition.x, minX, maxX);
-           
-            transform.localPosition = newPosition;
-        }
+        Vector3 newPosition = transform.localPosition;
+        newPosition.x = Mathf.Clamp(newPosition.x, minX, maxX);
+        newPosition.z = Mathf.Clamp(newPosition.z, minZ, maxZ);
+        transform.localPosition = newPosition;
+       
+       
 
 
         if (!nextStep)
@@ -90,33 +81,18 @@ public class Human : MonoBehaviour
         }
         if (other.tag=="Wheel")
         {
-            moveFirst = false;
+          
             other.gameObject.SetActive(false);
             anim.SetBool("Victory",true);
             nextStep = true;
             wheelPanel.SetActive(true);
-            minX = -1000;
-            maxX = 1000;
-            minZ =85;
+            minX = -100;
+            maxX = 100;
+            minZ = 85;
             
         }
-        if (other.tag=="BorderVertical")
-        {
-            border = true;
-            if (other.transform.position.x>0)
-            {
-                maxX = transform.localPosition.x;
-            }
-            else
-            {
-                minX = transform.localPosition.x;
-            }
-        }
-        if (other.tag=="BorderHorizontal")
-        {
-            border = true;
-            maxZ = transform.localPosition.z;
-        }
+      
+       
 
     }
     

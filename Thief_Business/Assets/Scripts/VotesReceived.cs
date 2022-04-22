@@ -28,11 +28,12 @@ public class VotesReceived : MonoBehaviour
         }
     }
     public float elapsedTime = 0;
+    float duration = 1000f;
     IEnumerator FillAmount()
     {
         amount = PlayerPrefs.GetFloat("Vote" + id, 0f);
 
-        float duration = 100f;
+        
            
 
         while (elapsedTime < duration)
