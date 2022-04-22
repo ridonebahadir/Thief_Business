@@ -14,6 +14,8 @@ TagManager:
   - Human
   - MoneyStash
   - Border
+  - BorderVertical
+  - BorderHorizontal
   layers:
   - Default
   - TransparentFX
