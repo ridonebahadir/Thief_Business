@@ -11,10 +11,16 @@ public class VotesReceived : MonoBehaviour
     public float manyBuild;
     public bool fill;
     float bolum;
+   
+    public int colorValue;
+    public Place place;
     void Start()
     {
-        bolum = 1/manyBuild;
         image = GetComponent<Image>();
+        colorValue = PlayerPrefs.GetInt("Color" + id,2);
+        image.color = place.votesColor[colorValue];
+        bolum = 1/manyBuild;
+       
         amount = PlayerPrefs.GetFloat("Vote"+id,0f);
         image.fillAmount = amount;
         
@@ -23,6 +29,7 @@ public class VotesReceived : MonoBehaviour
     {
         if (fill)
         {
+            
             StartCoroutine(FillAmount());
             
         }
@@ -44,10 +51,11 @@ public class VotesReceived : MonoBehaviour
             yield return null;
         }
        
-
     }
     public void AgainRun()
     {
+        colorValue = PlayerPrefs.GetInt("votesColor");
+        PlayerPrefs.SetInt("Color" + id, colorValue);
         PlayerPrefs.SetFloat("Vote" + id, amount + bolum);
     }
 }

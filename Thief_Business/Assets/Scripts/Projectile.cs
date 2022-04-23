@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class Projectile : MonoBehaviour
 {
+	
 	public DynamicJoystick dynamicJoystick;
 	[Tooltip("Position we want to hit")]
 	public Transform targetPos;
@@ -31,8 +32,14 @@ public class Projectile : MonoBehaviour
 	public ThiefCollider thiefCollider;
 	
 	public List<Transform> listObj;
-
-    private void Start()
+	[Header("After Run")]
+	public Avatar[] humanAvatars;
+	public Human human;
+	public GameObject HumanObj;
+	public Animator humanAnim;
+	public GameObject voteParent;
+	//public Transform[] humanCharacter;
+	private void Start()
     {
 		//colliderBusiness.enabled = false;
 		//colliderThief.enabled = true;
@@ -127,8 +134,23 @@ public class Projectile : MonoBehaviour
 		}
         if (isPrinter)
         {
-			if (throwObj) startPos = ThiefKucak;
-			else startPos = BusinessKucak;
+			if (throwObj)
+			{
+				startPos = ThiefKucak;
+				HumanObj.transform.GetChild(1).gameObject.SetActive(true);
+				humanAnim.avatar = humanAvatars[1];
+				human.humanCharacter = HumanObj.transform.GetChild(1);
+				PlayerPrefs.SetInt("votesColor",1);
+			}
+
+			else
+			{
+				startPos = BusinessKucak;
+				HumanObj.transform.GetChild(0).gameObject.SetActive(true);
+				humanAnim.avatar = humanAvatars[0];
+				human.humanCharacter = HumanObj.transform.GetChild(0);
+				PlayerPrefs.SetInt("votesColor",0);
+			} 
 
 			
             targetPos = Printer;

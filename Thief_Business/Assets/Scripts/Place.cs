@@ -26,7 +26,10 @@ public class Place : MonoBehaviour
     public int id;
 
     public Transform voteStates;
+   
     private Animator humanAnim;
+    public Color[] votesColor;
+    
     private void Start()
     {
         humanAnim = human.GetComponent<Animator>();
@@ -80,7 +83,9 @@ public class Place : MonoBehaviour
                 onePlayTime = false;
                 pay = true;
                 voteStates.GetComponent<VotesReceived>().amount = PlayerPrefs.GetFloat("Vote" + id, 0f);
-                
+               
+
+
             }
             else
             {
@@ -102,6 +107,7 @@ public class Place : MonoBehaviour
     }
     void Pay()
     {
+        voteStates.GetComponent<Image>().color = votesColor[PlayerPrefs.GetInt("votesColor")];
         human.transform.DOMove(transform.position, 1.5f).OnComplete(() => humanAnim.SetBool("Talk", true)); flash.SetActive(true);
         human.transform.GetChild(0).DOLocalRotate(new Vector3(0, 0, 0), 0.5f);
         human.map = false;
