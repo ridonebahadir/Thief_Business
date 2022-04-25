@@ -48,11 +48,12 @@ public class ThiefCollider : MonoBehaviour
             }
             else
             {
+                boxCollider.enabled = false;
                 if (isMoneyHave)
                 {
                     Invoke("Late", 3f);
                 }
-                boxCollider.enabled = false;
+               
                
                 anim.SetBool("Victory", true);
                 projectile.speed = 10;
@@ -60,9 +61,9 @@ public class ThiefCollider : MonoBehaviour
                 projectile.isPrinter = true;
                 printer.enabled = true;
                 pathFollower.enabled = false;
-                boxCollider.enabled = false;
+               
                 move.enabled = false;
-                pathFollower.enabled = false;
+               
             }
             
             //wheelPanel.SetActive(true);

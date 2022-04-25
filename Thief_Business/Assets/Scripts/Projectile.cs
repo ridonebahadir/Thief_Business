@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.Events;
 using System.Collections.Generic;
+using System;
+using DG.Tweening;
 
 public class Projectile : MonoBehaviour
 {
@@ -40,15 +42,7 @@ public class Projectile : MonoBehaviour
 	public GameObject voteParent;
 	public RectTransform moneyCanvas;
 	//public Transform[] humanCharacter;
-	private void Start()
-    {
-		//colliderBusiness.enabled = false;
-		//colliderThief.enabled = true;
-
-
-
-		
-	}
+	
     void Update()
 	{
 		
@@ -104,15 +98,18 @@ public class Projectile : MonoBehaviour
 				//BUSÝNESS
 				//transform.parent = BusinessKucak;
 				startPos = BusinessKucak;
-				
-				if (isPrinter) targetPos = Printer;
-				else targetPos = ThiefKucak;
 
-				Invoke("LateBusinessThrow", 0f);
-				Invoke("LateBusiness", 0.65f);
-				float x0 = startPos.position.x;
-				float x1 = targetPos.position.x;
-				MoveOtherSide(x0, x1,0.5f);
+				
+					targetPos = ThiefKucak;
+					Invoke("LateBusinessThrow", 0f);
+					Invoke("LateBusiness", 0.65f);
+					float x0 = startPos.position.x;
+					float x1 = targetPos.position.x;
+					MoveOtherSide(x0, x1, 0.5f);
+				
+				
+
+				
 			}
 			else
 			{
@@ -120,24 +117,28 @@ public class Projectile : MonoBehaviour
 				//THIEF
 				//transform.parent = ThiefKucak;
 				startPos = ThiefKucak;
-				if (isPrinter) targetPos = Printer;
-				else targetPos = BusinessKucak;
 				
-				Invoke("LateThiefThrow", 0f);
-				Invoke("LateThief", 0.65f);
-				float x0 = startPos.position.x;
-				float x1 = targetPos.position.x;
-				MoveOtherSide(x0, x1,0.5f);
+					targetPos = BusinessKucak;
 
+					Invoke("LateThiefThrow", 0f);
+					Invoke("LateThief", 0.65f);
+					float x0 = startPos.position.x;
+					float x1 = targetPos.position.x;
+					MoveOtherSide(x0, x1, 0.5f);
+
+				
+				
 			}
 
           
 		}
         if (isPrinter)
         {
+			GoMoney();
+
 			if (throwObj)
 			{
-				startPos = ThiefKucak;
+				
 				HumanObj.transform.GetChild(1).gameObject.SetActive(true);
 				humanAnim.avatar = humanAvatars[1];
 				human.humanCharacter = HumanObj.transform.GetChild(1);
@@ -146,7 +147,7 @@ public class Projectile : MonoBehaviour
 
 			else
 			{
-				startPos = BusinessKucak;
+				
 				HumanObj.transform.GetChild(0).gameObject.SetActive(true);
 				humanAnim.avatar = humanAvatars[0];
 				human.humanCharacter = HumanObj.transform.GetChild(0);
@@ -154,16 +155,27 @@ public class Projectile : MonoBehaviour
 			} 
 
 			
-            targetPos = Printer;
-            float x0 = startPos.position.x;
-            float x1 = targetPos.position.x;
-            MoveOtherSide(x0, x1,0);
-			Invoke("Remove",1f);
+   //         targetPos = Printer;
+   //         float x0 = startPos.position.x;
+   //         float x1 = targetPos.position.x;
+   //         MoveOtherSide(x0, x1,0);
+			//Invoke("Remove",1f);
         }
 
 
     }
-	void Remove()
+
+    private void GoMoney()
+    {
+        for (int i = 0; i < listObj.Count; i++)
+        {
+			listObj[i].DOLocalMove(new Vector3(2,30.7f, 0),0.5f+(i*0.1f)).OnComplete(()=>listObj[i].gameObject.SetActive(false));
+        }
+		
+		
+    }
+
+    void Remove()
     {
         foreach (var item in listObj)
         {
