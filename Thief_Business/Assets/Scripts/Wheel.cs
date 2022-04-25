@@ -16,10 +16,14 @@ public class Wheel : MonoBehaviour
     public Animator humanAnim;
     public Transform mainCamera;
     public GameObject done;
+    public Text paraMiktari;
+    public Button wheelButton;
     public void WheelButton()
     {
-       
+        wheelButton.interactable = false;
+        run = false;
         anim.enabled = false;
+      
         float zRotation = rectTransform.localEulerAngles.z;
         if (Mathf.Clamp(zRotation, 180, 216) == zRotation) gameManager.money *= 3;
         if (Mathf.Clamp(zRotation, 216, 252) == zRotation) gameManager.money *= 4;
@@ -30,10 +34,29 @@ public class Wheel : MonoBehaviour
         humanAnim.SetBool("Stop", true);
         Invoke("Late", 2f);
     }
+    bool run = true;
+    private void Update()
+    {
+        if (run)
+        {
+            float zRotation = rectTransform.localEulerAngles.z;
+
+            if (Mathf.Clamp(zRotation, 180, 216) == zRotation) { int possible = gameManager.money; possible *= 3; paraMiktari.text = possible.ToString(); }
+            if (Mathf.Clamp(zRotation, 216, 252) == zRotation) { int possible = gameManager.money; possible *= 4; paraMiktari.text = possible.ToString(); }
+            if (Mathf.Clamp(zRotation, 252, 288) == zRotation) { int possible = gameManager.money; possible *= 5; paraMiktari.text = possible.ToString(); }
+            if (Mathf.Clamp(zRotation, 288, 324) == zRotation) { int possible = gameManager.money; possible *= 4; paraMiktari.text = possible.ToString(); }
+            if (Mathf.Clamp(zRotation, 324, 360) == zRotation) { int possible = gameManager.money; possible *= 3; paraMiktari.text = possible.ToString(); }
+        }
+        else
+        {
+            paraMiktari.text = gameManager.moneyText.text;
+        }
+       
+    }
     void Late()
     {
         whellPanel.SetActive(false);
-        human.map = true;
+        human.Map();
         dynamicJoystick.AxisOptions = AxisOptions.Both;
         mainCamera.transform.DOLocalMove(new Vector3(0,25,-10), 1.5f).OnComplete(() => End());
         mainCamera.transform.DOLocalRotate(new Vector3(45,0,0), 1.5f);
@@ -42,6 +65,7 @@ public class Wheel : MonoBehaviour
        
         
     }
+
     void End()
     {
         done.SetActive(true);

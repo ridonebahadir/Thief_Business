@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class Place : MonoBehaviour
 {
+    public RectTransform moneyCanvas;
     public Human human;
     public GameObject flash;
     private int costBuild;
@@ -59,6 +60,7 @@ public class Place : MonoBehaviour
             count += 1 * Time.deltaTime;
             if (count>2)
             {
+
                
                 if (!onePlayTime)
                 {
@@ -110,9 +112,12 @@ public class Place : MonoBehaviour
         voteStates.GetComponent<Image>().color = votesColor[PlayerPrefs.GetInt("votesColor")];
         human.transform.DOMove(transform.position, 1.5f).OnComplete(() => humanAnim.SetBool("Talk", true)); flash.SetActive(true);
         human.transform.GetChild(0).DOLocalRotate(new Vector3(0, 0, 0), 0.5f);
-        human.map = false;
+        human.movement = false;
         voteStates.GetComponent<VotesReceived>().fill = true;
-        
+        moneyCanvas.DOPunchScale(new Vector3(2, 2, 2), .25f);
+       
+
+
 
         costBuild -= updateCost;
 
@@ -120,7 +125,7 @@ public class Place : MonoBehaviour
         .OnUpdate(() => { 
             valueUpgradeText.text = updateCost.ToString(); 
             Vibration.Vibrate(50);
-            
+           
         });
 
         textBool = true;
@@ -129,12 +134,25 @@ public class Place : MonoBehaviour
 
 
         onePlayTime = true;
+        StartCoroutine(MoneyCanvasPunch());
+    }
+    IEnumerator MoneyCanvasPunch()
+    {
+       
+        for (int i = 0; i < 20; i++)
+        {
+
+            moneyCanvas.DOPunchScale(new Vector3(2, 2, 2), .25f);
+            moneyCanvas.GetComponent<Image>().color=Color.red;
+            yield return new WaitForSeconds(0.30f);
+        }
+        moneyCanvas.GetComponent<Image>().color = Color.green;
     }
     void End()
     {
         flash.SetActive(false);
         humanAnim.SetBool("Talk", false);
-        human.map = true;
+        human.movement = true;
         voteStates.GetComponent<VotesReceived>().fill = false;
         voteStates.GetComponent<VotesReceived>().elapsedTime = 0;
         voteStates.GetComponent<VotesReceived>().AgainRun();

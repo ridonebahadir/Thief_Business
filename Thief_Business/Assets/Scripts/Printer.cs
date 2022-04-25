@@ -29,14 +29,16 @@ public class Printer : MonoBehaviour
     {
         for (int i = 0; i < count; i++)
         {
-            GameObject obj = Instantiate(banner,transform.position,Quaternion.identity);
+            float random = Random.Range(-3, 3);
+            GameObject obj = Instantiate(banner);
             banner = obj;
-            float random = Random.Range(-3,3);
+            targetPos.localPosition = new Vector3(random, 0, i + 10);
+            banner.transform.position = targetPos.position;
             //int randomIndex = Random.Range(0, 3);
             //float randomFloatFromNumbers = numbers[randomIndex];
 
-            targetPos.localPosition = new Vector3(random,0, i+10);
-            banner.transform.DOJump(new Vector3(targetPos.position.x, targetPos.position.y, targetPos.position.z), 15, 1, 0.8f, false);
+
+            //banner.transform.DOJump(new Vector3(targetPos.position.x, targetPos.position.y, targetPos.position.z), 15, 1, 0.8f, false);
             yield return new WaitForSeconds(0.25f);
         }
            

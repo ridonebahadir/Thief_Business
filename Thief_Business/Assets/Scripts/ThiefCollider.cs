@@ -17,7 +17,10 @@ public class ThiefCollider : MonoBehaviour
     private PathFollower pathFollower;
     public Transform targetPos;
     private BoxCollider boxCollider;
-
+    public Move move;
+    public Printer printer;
+    public GameObject Human;
+    public GameObject moveobj;
     [Header("COLLECT")]
     public Transform kucak;
     public GameObject money;
@@ -45,12 +48,20 @@ public class ThiefCollider : MonoBehaviour
             }
             else
             {
+                if (isMoneyHave)
+                {
+                    Invoke("Late", 3f);
+                }
                 boxCollider.enabled = false;
-                Invoke("Late", 3f);
+               
                 anim.SetBool("Victory", true);
                 projectile.speed = 10;
                 projectile.touch = true;
                 projectile.isPrinter = true;
+                printer.enabled = true;
+                pathFollower.enabled = false;
+                boxCollider.enabled = false;
+                move.enabled = false;
                 pathFollower.enabled = false;
             }
             
@@ -146,7 +157,16 @@ public class ThiefCollider : MonoBehaviour
     }
     void Late()
     {
+        projectile.enabled = false;
         anim.SetBool("Jump", true);
-        transform.DOJump(targetPos.position, 15, 1, 1.5f, false).OnComplete(() => gameObject.SetActive(false)).SetEase(Ease.InOutQuad);
+        transform.DOJump(targetPos.position, 15, 1, 1.5f, false).OnComplete(() =>End()).SetEase(Ease.InOutQuad);
+    }
+    void End()
+    {
+        projectileTrans.gameObject.SetActive(false);
+        moveobj.transform.parent = Human.transform;
+        //move.enabled = true;
+        Human.SetActive(true);
+        gameObject.SetActive(false);
     }
 }

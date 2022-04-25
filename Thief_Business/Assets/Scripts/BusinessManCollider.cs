@@ -46,13 +46,18 @@ public class BusinessManCollider : MonoBehaviour
             }
             else
             {
-                Invoke("Late", 3f);
-              
+                if (isMoneyHave)
+                {
+                    Invoke("Late", 3f);
+
+                   
+                }
                 anim.SetBool("Victory", true);
                 projectile.speed = 10;
                 printer.enabled = true;
                 projectile.touch = true;
                 projectile.isPrinter = true;
+
             }
             StopRun();
 

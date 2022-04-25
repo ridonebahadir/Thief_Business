@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,14 +12,14 @@ public class Human : MonoBehaviour
     bool nextStep;
     public GameObject wheelPanel;
     public Animator anim;
-    public bool map;
+    //public bool map;
     public Transform humanCharacter;
     [Header("BORDER")]
     public float minX = -10;
     public float maxX = 10;
     public float minZ;
     public float maxZ = 500;
-   
+    public bool movement;
     void Start()
     {
         anim = GetComponent<Animator>();
@@ -32,8 +33,8 @@ public class Human : MonoBehaviour
         newPosition.x = Mathf.Clamp(newPosition.x, minX, maxX);
         newPosition.z = Mathf.Clamp(newPosition.z, minZ, maxZ);
         transform.localPosition = newPosition;
-       
-       
+
+
 
 
         if (!nextStep)
@@ -41,7 +42,8 @@ public class Human : MonoBehaviour
             transform.DOMove(transform.position + new Vector3( dynamicJoystick.Horizontal * speed * Time.deltaTime, 0, speed * Time.deltaTime), 0.1f);
 
         }
-        if (map)
+       
+        if (movement)
         {
             float horizontalInput = dynamicJoystick.Horizontal;
             float verticalInput = dynamicJoystick.Vertical;
@@ -51,7 +53,7 @@ public class Human : MonoBehaviour
 
             transform.Translate(movementDirection * speed * Time.deltaTime, Space.World);
 
-            
+
 
 
             if (movementDirection != Vector3.zero)
@@ -61,7 +63,7 @@ public class Human : MonoBehaviour
             }
             if (Input.GetMouseButton(0))
             {
-                anim.SetBool("Walk",true);
+                anim.SetBool("Walk", true);
             }
             if (Input.GetMouseButtonUp(0))
             {
@@ -69,6 +71,17 @@ public class Human : MonoBehaviour
             }
         }
 
+    }
+
+    private void End()
+    {
+        movement = true;
+        minZ = 85;
+
+    }
+    public void Map()
+    {
+        transform.DOLocalMove(new Vector3(0, -15, 110), 1f).OnComplete(() => End());
     }
 
     private void OnTriggerEnter(Collider other)
@@ -88,7 +101,7 @@ public class Human : MonoBehaviour
             wheelPanel.SetActive(true);
             minX = -100;
             maxX = 100;
-            minZ = 85;
+           
             
         }
       

@@ -38,6 +38,7 @@ public class Projectile : MonoBehaviour
 	public GameObject HumanObj;
 	public Animator humanAnim;
 	public GameObject voteParent;
+	public RectTransform moneyCanvas;
 	//public Transform[] humanCharacter;
 	private void Start()
     {
@@ -103,7 +104,7 @@ public class Projectile : MonoBehaviour
 				//BUSÝNESS
 				//transform.parent = BusinessKucak;
 				startPos = BusinessKucak;
-
+				
 				if (isPrinter) targetPos = Printer;
 				else targetPos = ThiefKucak;
 
