@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Door : MonoBehaviour
@@ -16,6 +17,7 @@ public class Door : MonoBehaviour
     private Renderer rd;
     public Material materialPositive; 
     public Material materialNegative; 
+    public TextMeshProUGUI textMeshPro; 
     void Start()
     {
         rd = GetComponent<Renderer>();
@@ -31,14 +33,14 @@ public class Door : MonoBehaviour
             {
                 rd.material = materialPositive;
                 int random = Random.Range(0, manPozitive.Length);
-                transform.parent.GetChild(1).GetComponent<TextMesh>().text = manPozitive[random];
+                textMeshPro.text = manPozitive[random];
                 
             }
             else
             {
                 rd.material= materialNegative;
                 int random = Random.Range(0, manNegative.Length);
-                transform.parent.GetChild(1).GetComponent<TextMesh>().text = manNegative[random];
+                textMeshPro.text = manNegative[random];
             }
         }
         else
@@ -47,22 +49,19 @@ public class Door : MonoBehaviour
             {
                 rd.material = materialPositive;
                 int random = Random.Range(0, thiefPozitive.Length);
-                transform.parent.GetChild(1).GetComponent<TextMesh>().text = thiefPozitive[random];
+                textMeshPro.text = thiefPozitive[random];
             }
             else
             {
                 rd.material = materialNegative;
                 int random = Random.Range(0, thiefNegative.Length);
-                transform.parent.GetChild(1).GetComponent<TextMesh>().text = thiefNegative[random];
+                textMeshPro.text = thiefNegative[random];
             }
         }
-        transform.parent.GetChild(0).GetComponent<Door>().value = valueRandom;
+        transform.parent.GetChild(1).GetComponent<Door>().value = valueRandom;
         transform.parent.GetChild(2).GetComponent<TextMesh>().text = valueRandom.ToString();
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        
-    }
+  
 }
