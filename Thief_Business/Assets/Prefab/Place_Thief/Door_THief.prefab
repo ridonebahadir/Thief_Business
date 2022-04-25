@@ -30,6 +30,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.104, z: -0.386}
   m_LocalScale: {x: 1, y: 1.25, z: 0.11}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5636357176537289423}
   m_RootOrder: 0
@@ -53,6 +54,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -150,6 +152,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.151, z: -0.49}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5636357176537289423}
   m_RootOrder: 2
@@ -165,6 +168,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -217,32 +221,6 @@ TextMesh:
   m_Color:
     serializedVersion: 2
     rgba: 4294967295
---- !u!114 &6125332205671436606
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3250011816055194464}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6dd35f66e8b8e22438fb0f836e49d782, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  value: 0
-  manOrThief: 0
-  manPozitive: []
-  manNegative: []
-  thiefPozitive:
-  - kuyumcu
-  - "kapka\xE7"
-  - banka
-  thiefNegative:
-  - yasa
-  - hapis
-  - halk
-  materialPositive: {fileID: 2100000, guid: 45ad5d7073875f94895bca145df5bec2, type: 2}
-  materialNegative: {fileID: 2100000, guid: 538da196201d43944a12e30201225c41, type: 2}
 --- !u!1 &4539534530149922225
 GameObject:
   m_ObjectHideFlags: 0
@@ -269,6 +247,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 6.2829, y: 5.635, z: 15.5392}
   m_LocalScale: {x: 9, y: 9, z: 9}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2861617460447564600}
   - {fileID: 1155900250092615333}
@@ -307,6 +286,7 @@ Transform:
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0.165, z: -0.423}
   m_LocalScale: {x: 0.08622445, y: 0.0112511115, z: 0.10460111}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5636357176537289423}
   m_RootOrder: 4
@@ -330,6 +310,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -404,6 +385,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.461, z: -0.49000025}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5636357176537289423}
   m_RootOrder: 1
@@ -419,6 +401,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -535,13 +518,40 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f4f0ca4e363f5744877041ed2daa31b, type: 3}
---- !u!1 &3250011816055194464 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 3f4f0ca4e363f5744877041ed2daa31b, type: 3}
-  m_PrefabInstance: {fileID: 2439602270523358769}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2761142165441255898 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 3f4f0ca4e363f5744877041ed2daa31b, type: 3}
   m_PrefabInstance: {fileID: 2439602270523358769}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &3250011816055194464 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 3f4f0ca4e363f5744877041ed2daa31b, type: 3}
+  m_PrefabInstance: {fileID: 2439602270523358769}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6125332205671436606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3250011816055194464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dd35f66e8b8e22438fb0f836e49d782, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  value: 0
+  manOrThief: 0
+  manPozitive: []
+  manNegative: []
+  thiefPozitive:
+  - Help Ukraine
+  - Build Back Better
+  - I Got Your Back America
+  - Yes We Can
+  thiefNegative:
+  - Civil Commotion
+  - Natural Disaster
+  - Income Tax
+  materialPositive: {fileID: 2100000, guid: 45ad5d7073875f94895bca145df5bec2, type: 2}
+  materialNegative: {fileID: 2100000, guid: 538da196201d43944a12e30201225c41, type: 2}
