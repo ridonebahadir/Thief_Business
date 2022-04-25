@@ -84,7 +84,7 @@ public class Place : MonoBehaviour
                 color.material.color = Color.green;
                 onePlayTime = false;
                 pay = true;
-                voteStates.GetComponent<VotesReceived>().amount = PlayerPrefs.GetFloat("Vote" + id, 0f);
+                //voteStates.GetComponent<VotesReceived>().amount = PlayerPrefs.GetFloat("Vote" + id, 0f);
                
 
 
@@ -114,7 +114,7 @@ public class Place : MonoBehaviour
         human.transform.GetChild(0).DOLocalRotate(new Vector3(0, 0, 0), 0.5f);
         human.movement = false;
         voteStates.GetComponent<VotesReceived>().fill = true;
-        moneyCanvas.DOPunchScale(new Vector3(2, 2, 2), .25f);
+      
        
 
 
