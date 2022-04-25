@@ -7,8 +7,7 @@ using UnityEngine.UI;
 
 public class Place : MonoBehaviour
 {
-    public RectTransform moneyCanvas;
-    public Image back;
+ 
     public Human human;
     public GameObject flash;
     private int costBuild;
@@ -31,9 +30,10 @@ public class Place : MonoBehaviour
    
     private Animator humanAnim;
     public Color[] votesColor;
-    
+    public int who;
     private void Start()
     {
+        
         humanAnim = human.GetComponent<Animator>();
         valueUpgradeText = transform.parent.GetChild(1).GetComponent<TextMesh>();
         color = GetComponent<Renderer>();
@@ -43,7 +43,7 @@ public class Place : MonoBehaviour
         }
         
         costBuild = PlayerPrefs.GetInt("CostBuild"+id, startCost);
-       
+        who = voteStates.GetComponent<VotesReceived>().colorValue;
         UpGrade();
        
     }
@@ -144,8 +144,8 @@ public class Place : MonoBehaviour
         while (animationMoney)
         {
 
-            moneyCanvas.DOPunchScale(new Vector3(.15f,.15f , .15f), .15f);
-            back.color=Color.red;
+            gameManager.MoneyCanvasPunch(false,0.15f);
+            gameManager.MoneyBackColorBad();
             yield return new WaitForSeconds(0.16f);
         }
         
@@ -153,7 +153,7 @@ public class Place : MonoBehaviour
     void End()
     {
         animationMoney = false;
-        back.color = Color.green;
+        gameManager.MoneyBackColorGood();
         flash.SetActive(false);
         humanAnim.SetBool("Talk", false);
         human.movement = true;
@@ -188,9 +188,13 @@ public class Place : MonoBehaviour
         if (costBuild <= startCost - upgradeCost[2])
         {
             
-            ObjActive(2);
+            ObjActive(3);
+            who = voteStates.GetComponent<VotesReceived>().colorValue;
+            build[3].transform.GetChild(who).gameObject.SetActive(true);
             transform.parent.gameObject.SetActive(false);
             
+
+
         }
         valueUpgradeText.text = updateCost.ToString();
 

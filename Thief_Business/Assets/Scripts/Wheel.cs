@@ -58,7 +58,7 @@ public class Wheel : MonoBehaviour
         whellPanel.SetActive(false);
         human.Map();
         dynamicJoystick.AxisOptions = AxisOptions.Both;
-        mainCamera.transform.DOLocalMove(new Vector3(0,25,-10), 1.5f).OnComplete(() => End());
+        mainCamera.transform.DOLocalMove(new Vector3(0,35,-20), 1.5f).OnComplete(() => End());
         mainCamera.transform.DOLocalRotate(new Vector3(45,0,0), 1.5f);
 
        

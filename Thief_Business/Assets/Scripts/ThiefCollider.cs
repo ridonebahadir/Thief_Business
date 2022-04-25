@@ -80,6 +80,7 @@ public class ThiefCollider : MonoBehaviour
                 {
                     if (value > 0)
                     {
+                        gameManager.MoneyCanvasPunch(true,0.15f);
                         Vibration.Vibrate(100);
                         //Instantiate(moneyBurst, kucak.position, Quaternion.identity);
                         for (int i = 0; i < 3; i++)
@@ -91,6 +92,9 @@ public class ThiefCollider : MonoBehaviour
                     }
                     else
                     {
+                        gameManager.MoneyBackColorBad();
+                        gameManager.MoneyCanvasPunch(true,0.15f);
+                        
                         Vibration.Vibrate(1000);
                     }
                     
@@ -114,6 +118,9 @@ public class ThiefCollider : MonoBehaviour
         {
             if (isMoneyHave)
             {
+               
+                gameManager.MoneyCanvasPunch(false,0.15f);
+                
                 Vibration.Vibrate(1000);
 
                 Invoke("StopLatePolice", 0.25f);
@@ -129,6 +136,7 @@ public class ThiefCollider : MonoBehaviour
         }
         if (other.tag=="Money")
         {
+            gameManager.MoneyCanvasPunch(true,0.05f);
             isMoneyHave = true;
             gameManager.money += 5;
             gameManager.moneyText.text = gameManager.money.ToString();

@@ -8,6 +8,7 @@ using PathCreation.Examples;
 
 public class GameManager : MonoBehaviour
 {
+    
     public int money;
     public Text moneyText;
     public Transform mainCamera;
@@ -18,14 +19,17 @@ public class GameManager : MonoBehaviour
     public Transform startPanel;
     public Animator businessAnim;
     public Animator thiefAnim;
-
+    public Transform map;
     [Header("MOVE POSITION")]
    
     public Transform businessMan;
     public Transform thief;
     public Transform Lholder;
     public Transform Rholder;
-    
+
+    [Header("MONEY CANVAS")]
+    public RectTransform moneyCanvas;
+    public Image moneyBack;
     private void Start()
     {
         money=PlayerPrefs.GetInt("Money", 0);
@@ -45,8 +49,9 @@ public class GameManager : MonoBehaviour
     }
     public void Done()
     {
-        mainCamera.transform.DOLocalMove(new Vector3(0, 240, 50), 1.5f).OnComplete(() => { Invoke("Restart", 3f); });
-        mainCamera.transform.DOLocalRotate(new Vector3(90, 0, 0), 1.5f);
+        mainCamera.transform.parent = map;
+        mainCamera.transform.DOLocalMove(new Vector3(0,0, -300), 2f).OnComplete(() => { Invoke("Restart", 1f); });
+        mainCamera.transform.DOLocalRotate(new Vector3(0, 0, 0), 1.5f);
     }
     public void StartButton()
     {
@@ -67,5 +72,17 @@ public class GameManager : MonoBehaviour
         thiefFollow.enabled = true;
         businessManFollow.enabled = true;
         move.enabled = true;
+    }
+    public void MoneyCanvasPunch(bool isGood,float anim)
+    {
+        moneyCanvas.DOPunchScale(new Vector3(.20f, .20f, .20f), anim).OnComplete(()=> { if (isGood) MoneyBackColorGood(); else MoneyBackColorBad(); });
+    }
+    public void MoneyBackColorBad()
+    {
+        moneyBack.color = Color.red;
+    }
+    public void MoneyBackColorGood()
+    {
+        moneyBack.color = Color.green;
     }
 }

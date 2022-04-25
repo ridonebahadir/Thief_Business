@@ -29,6 +29,7 @@ public class BusinessManCollider : MonoBehaviour
     public Projectile projectile;
     public Transform projectileTrans;
     public Animator anim;
+    
 
     private void Start()
     {
@@ -72,11 +73,13 @@ public class BusinessManCollider : MonoBehaviour
                 int value = other.GetComponent<Door>().value;
                 gameManager.money += value;
                 gameManager.moneyText.text = gameManager.money.ToString();
+               
                 //int random = Random.Range(0,money.Length);
                 if (gameManager.money>0)
                 {
                     if (value>0)
                     {
+                        gameManager.MoneyCanvasPunch(true,0.15f);
                         Vibration.Vibrate(100);
                         //Instantiate(moneyBurst, kucak.position, Quaternion.identity);
                         for (int i = 0; i < 3; i++)
@@ -88,6 +91,8 @@ public class BusinessManCollider : MonoBehaviour
                     }
                     else
                     {
+                        gameManager.MoneyBackColorBad();
+                        gameManager.MoneyCanvasPunch(true,0.15f);
                         Vibration.Vibrate(1000);
                     }
 
@@ -111,6 +116,9 @@ public class BusinessManCollider : MonoBehaviour
         {
             if (isMoneyHave)
             {
+                gameManager.MoneyCanvasPunch(false, 0.15f);
+                gameManager.money = 0;
+                gameManager.moneyText.text = gameManager.money.ToString();
                 Vibration.Vibrate(1000);
                 police = true;
                 Invoke("StopRun", 0.25f);
@@ -125,6 +133,7 @@ public class BusinessManCollider : MonoBehaviour
         }
         if (other.tag=="Money")
         {
+            gameManager.MoneyCanvasPunch(true,0.05f);
             isMoneyHave = true;
             gameManager.money += 5;
             gameManager.moneyText.text = gameManager.money.ToString();

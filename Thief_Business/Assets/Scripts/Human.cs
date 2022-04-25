@@ -88,6 +88,7 @@ public class Human : MonoBehaviour
     {
         if (other.tag=="Banner")
         {
+            gameManager.MoneyCanvasPunch(true,0.05f);
             gameManager.money += 3;
             other.gameObject.SetActive(false);
             gameManager.moneyText.text = gameManager.money.ToString();
