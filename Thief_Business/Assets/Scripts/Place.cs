@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class Place : MonoBehaviour
 {
     public RectTransform moneyCanvas;
+    public Image back;
     public Human human;
     public GameObject flash;
     private int costBuild;
@@ -136,20 +137,23 @@ public class Place : MonoBehaviour
         onePlayTime = true;
         StartCoroutine(MoneyCanvasPunch());
     }
+    bool animationMoney = true;
     IEnumerator MoneyCanvasPunch()
     {
        
-        for (int i = 0; i < 20; i++)
+        while (animationMoney)
         {
 
-            moneyCanvas.DOPunchScale(new Vector3(2, 2, 2), .25f);
-            moneyCanvas.GetComponent<Image>().color=Color.red;
-            yield return new WaitForSeconds(0.30f);
+            moneyCanvas.DOPunchScale(new Vector3(.15f,.15f , .15f), .15f);
+            back.color=Color.red;
+            yield return new WaitForSeconds(0.16f);
         }
-        moneyCanvas.GetComponent<Image>().color = Color.green;
+        
     }
     void End()
     {
+        animationMoney = false;
+        back.color = Color.green;
         flash.SetActive(false);
         humanAnim.SetBool("Talk", false);
         human.movement = true;
