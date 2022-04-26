@@ -9,6 +9,7 @@ public class Human : MonoBehaviour
     public GameManager gameManager;
     public DynamicJoystick dynamicJoystick;
     public float speed;
+    public float horizotalSpeed;
     bool nextStep;
     public GameObject wheelPanel;
     public Animator anim;
@@ -39,7 +40,7 @@ public class Human : MonoBehaviour
 
         if (!nextStep)
         {
-            transform.DOMove(transform.position + new Vector3( dynamicJoystick.Horizontal * speed * Time.deltaTime, 0, speed * Time.deltaTime), 0.1f);
+            transform.DOMove(transform.position + new Vector3( dynamicJoystick.Horizontal * horizotalSpeed * Time.deltaTime, 0, speed * Time.deltaTime), 0.1f);
 
         }
        
