@@ -34,7 +34,7 @@ public class Printer : MonoBehaviour
             banner = obj;
             targetPos.localPosition = new Vector3(random, 0, i + 10);
             banner.transform.position = targetPos.position;
-            banner.transform.DOPunchScale(new Vector3(2, 2, 2), .25f);
+            banner.transform.DOPunchScale(new Vector3(2, 2, 2), .05f);
             //int randomIndex = Random.Range(0, 3);
             //float randomFloatFromNumbers = numbers[randomIndex];
 
