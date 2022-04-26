@@ -51,11 +51,13 @@ public class BusinessManCollider : MonoBehaviour
                 if (isMoneyHave)
                 {
                     Invoke("Late", 3f);
-
-                   
+                    anim.SetBool("Victory", true);
                 }
-               
-                anim.SetBool("Victory", true);
+
+                else
+                {
+                    anim.SetBool("Sad", true);
+                }
                 projectile.speed = 10;
                 printer.enabled = true;
                 projectile.touch = true;

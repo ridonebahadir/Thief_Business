@@ -52,10 +52,14 @@ public class ThiefCollider : MonoBehaviour
                 if (isMoneyHave)
                 {
                     Invoke("Late", 3f);
+                    anim.SetBool("Victory", true);
+                }
+
+                else
+                {
+                    anim.SetBool("Sad", true);
                 }
                
-               
-                anim.SetBool("Victory", true);
                 projectile.speed = 10;
                 projectile.touch = true;
                 projectile.isPrinter = true;
