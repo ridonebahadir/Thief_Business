@@ -40,7 +40,7 @@ public class Printer : MonoBehaviour
 
 
             //banner.transform.DOJump(new Vector3(targetPos.position.x, targetPos.position.y, targetPos.position.z), 15, 1, 0.8f, false);
-            yield return new WaitForSeconds(0.25f);
+            yield return new WaitForSeconds(0.1f);
         }
            
         

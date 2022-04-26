@@ -72,10 +72,10 @@ public class BusinessManCollider : MonoBehaviour
         {
             if (isMoneyHave)
             {
-               
+                other.transform.GetChild(0).gameObject.SetActive(true);
                 int value = other.GetComponent<Door>().value;
                 gameManager.money += value;
-                gameManager.moneyText.text = gameManager.money.ToString();
+                gameManager.moneyText.text = gameManager.money.ToString()+"M";
                
                 //int random = Random.Range(0,money.Length);
                 if (gameManager.money>0)
@@ -121,7 +121,7 @@ public class BusinessManCollider : MonoBehaviour
             {
                 gameManager.MoneyCanvasPunch(false, 0.15f);
                 gameManager.money = 0;
-                gameManager.moneyText.text = gameManager.money.ToString();
+                gameManager.moneyText.text = gameManager.money.ToString()+"M";
                 Vibration.Vibrate(1000);
                 police = true;
                 Invoke("StopRun", 0.25f);
@@ -139,7 +139,7 @@ public class BusinessManCollider : MonoBehaviour
             gameManager.MoneyCanvasPunch(true,0.05f);
             isMoneyHave = true;
             gameManager.money += 5;
-            gameManager.moneyText.text = gameManager.money.ToString();
+            gameManager.moneyText.text = gameManager.money.ToString()+"M";
             projectile.throwObj = false;
             projectile.touch = true;
             other.gameObject.SetActive(false);

@@ -49,6 +49,7 @@ public class GameManager : MonoBehaviour
     }
     public void Done()
     {
+        mainCamera.GetComponent<Camera>().farClipPlane = 1000;
         mainCamera.transform.parent = map;
         mainCamera.transform.DOLocalMove(new Vector3(0,0, -300), 2f).OnComplete(() => { Invoke("Restart", 1f); });
         mainCamera.transform.DOLocalRotate(new Vector3(0, 0, 0), 1.5f);

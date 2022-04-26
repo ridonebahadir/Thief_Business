@@ -54,7 +54,7 @@ public class Place : MonoBehaviour
 
         if (textBool)
         {
-            gameManager.moneyText.text = gameManager.money.ToString();
+            gameManager.moneyText.text = gameManager.money.ToString()+"M";
         }
         if (pay)
         {

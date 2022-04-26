@@ -30,7 +30,7 @@ public class Wheel : MonoBehaviour
         if (Mathf.Clamp(zRotation, 252, 288) == zRotation) gameManager.money *= 5;
         if (Mathf.Clamp(zRotation, 288, 324) == zRotation) gameManager.money *= 3;
         if (Mathf.Clamp(zRotation, 324, 360) == zRotation) gameManager.money *= 4;
-        gameManager.moneyText.text = gameManager.money.ToString();
+        gameManager.moneyText.text = gameManager.money.ToString()+"M";
         humanAnim.SetBool("Stop", true);
         Invoke("Late", 2f);
     }
@@ -49,7 +49,7 @@ public class Wheel : MonoBehaviour
         }
         else
         {
-            paraMiktari.text = gameManager.moneyText.text;
+            paraMiktari.text = gameManager.moneyText.text+"M";
         }
        
     }

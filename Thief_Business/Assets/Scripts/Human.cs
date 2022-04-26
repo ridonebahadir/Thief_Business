@@ -89,10 +89,12 @@ public class Human : MonoBehaviour
     {
         if (other.tag=="Banner")
         {
+            other.transform.parent.GetChild(1).gameObject.SetActive(true);
             gameManager.MoneyCanvasPunch(true,0.05f);
             gameManager.money += 3;
             other.gameObject.SetActive(false);
-            gameManager.moneyText.text = gameManager.money.ToString();
+            gameManager.moneyText.text = gameManager.money.ToString()+"M";
+            
         }
         if (other.tag=="Wheel")
         {
