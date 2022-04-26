@@ -18,6 +18,7 @@ public class Door : MonoBehaviour
     public Material materialPositive; 
     public Material materialNegative; 
     public TextMeshProUGUI textMeshPro; 
+    public TextMeshProUGUI textMeshProValue; 
     void Start()
     {
         rd = GetComponent<Renderer>();
@@ -59,7 +60,7 @@ public class Door : MonoBehaviour
             }
         }
         transform.parent.GetChild(1).GetComponent<Door>().value = valueRandom;
-        transform.parent.GetChild(2).GetComponent<TextMesh>().text = valueRandom.ToString();
+        textMeshProValue.text = valueRandom.ToString();
     }
 
     // Update is called once per frame

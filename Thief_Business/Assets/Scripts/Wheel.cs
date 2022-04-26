@@ -18,8 +18,15 @@ public class Wheel : MonoBehaviour
     public GameObject done;
     public Text paraMiktari;
     public Button wheelButton;
+
+    [Header("CLOSE")]
+    public GameObject[] closeObj;
     public void WheelButton()
     {
+        foreach (var item in closeObj)
+        {
+            item.SetActive(false);
+        }
         wheelButton.interactable = false;
         run = false;
         anim.enabled = false;
@@ -41,15 +48,15 @@ public class Wheel : MonoBehaviour
         {
             float zRotation = rectTransform.localEulerAngles.z;
 
-            if (Mathf.Clamp(zRotation, 180, 216) == zRotation) { int possible = gameManager.money; possible *= 3; paraMiktari.text = possible.ToString(); }
-            if (Mathf.Clamp(zRotation, 216, 252) == zRotation) { int possible = gameManager.money; possible *= 4; paraMiktari.text = possible.ToString(); }
-            if (Mathf.Clamp(zRotation, 252, 288) == zRotation) { int possible = gameManager.money; possible *= 5; paraMiktari.text = possible.ToString(); }
-            if (Mathf.Clamp(zRotation, 288, 324) == zRotation) { int possible = gameManager.money; possible *= 4; paraMiktari.text = possible.ToString(); }
-            if (Mathf.Clamp(zRotation, 324, 360) == zRotation) { int possible = gameManager.money; possible *= 3; paraMiktari.text = possible.ToString(); }
+            if (Mathf.Clamp(zRotation, 180, 216) == zRotation) { int possible = gameManager.money; possible *= 3; paraMiktari.text = possible.ToString()+"M"; }
+            if (Mathf.Clamp(zRotation, 216, 252) == zRotation) { int possible = gameManager.money; possible *= 4; paraMiktari.text = possible.ToString()+ "M"; }
+            if (Mathf.Clamp(zRotation, 252, 288) == zRotation) { int possible = gameManager.money; possible *= 5; paraMiktari.text = possible.ToString()+ "M"; }
+            if (Mathf.Clamp(zRotation, 288, 324) == zRotation) { int possible = gameManager.money; possible *= 4; paraMiktari.text = possible.ToString()+ "M"; }
+            if (Mathf.Clamp(zRotation, 324, 360) == zRotation) { int possible = gameManager.money; possible *= 3; paraMiktari.text = possible.ToString()+ "M"; }
         }
         else
         {
-            paraMiktari.text = gameManager.moneyText.text+"M";
+            paraMiktari.text = gameManager.moneyText.text;
         }
        
     }

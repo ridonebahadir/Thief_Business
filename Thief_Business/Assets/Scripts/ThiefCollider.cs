@@ -58,6 +58,7 @@ public class ThiefCollider : MonoBehaviour
                 else
                 {
                     anim.SetBool("Sad", true);
+                    anim.applyRootMotion = true;
                 }
                
                 projectile.speed = 10;

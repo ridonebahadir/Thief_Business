@@ -57,6 +57,7 @@ public class BusinessManCollider : MonoBehaviour
                 else
                 {
                     anim.SetBool("Sad", true);
+                    anim.applyRootMotion = true;
                 }
                 projectile.speed = 10;
                 printer.enabled = true;

@@ -2,6 +2,7 @@ using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,7 +19,7 @@ public class Place : MonoBehaviour
     private int updateCost;
     public int[] upgradeCost;
     private Renderer color;
-    private TextMesh valueUpgradeText;
+    private TextMeshPro valueUpgradeText;
     
     float count;
     bool pay;
@@ -26,7 +27,8 @@ public class Place : MonoBehaviour
     int remainingMoney;
     public int id;
 
-    public Transform voteStates;
+    public Image voteStates;
+    private VotesReceived votesReceived;
    
     private Animator humanAnim;
     public Color[] votesColor;
@@ -35,7 +37,8 @@ public class Place : MonoBehaviour
     {
         
         humanAnim = human.GetComponent<Animator>();
-        valueUpgradeText = transform.parent.GetChild(1).GetComponent<TextMesh>();
+        votesReceived = voteStates.GetComponent<VotesReceived>();
+        valueUpgradeText = transform.parent.GetChild(1).GetComponent<TextMeshPro>();
         color = GetComponent<Renderer>();
         for (int i = 0; i < upgradeCost.Length; i++)
         {
@@ -43,7 +46,7 @@ public class Place : MonoBehaviour
         }
         
         costBuild = PlayerPrefs.GetInt("CostBuild"+id, startCost);
-        who = voteStates.GetComponent<VotesReceived>().colorValue;
+        who = votesReceived.colorValue;
         UpGrade();
        
     }
@@ -110,11 +113,12 @@ public class Place : MonoBehaviour
     }
     void Pay()
     {
-        voteStates.GetComponent<Image>().color = votesColor[PlayerPrefs.GetInt("votesColor")];
+        voteStates.color = votesColor[PlayerPrefs.GetInt("votesColor")];
         human.transform.DOMove(transform.position, 1.5f).OnComplete(() => humanAnim.SetBool("Talk", true)); flash.SetActive(true);
         human.transform.GetChild(0).DOLocalRotate(new Vector3(0, 0, 0), 0.5f);
         human.movement = false;
-        voteStates.GetComponent<VotesReceived>().fill = true;
+        //votesReceived.fill = true;
+        votesReceived.Fill();
       
        
 
@@ -157,9 +161,9 @@ public class Place : MonoBehaviour
         flash.SetActive(false);
         humanAnim.SetBool("Talk", false);
         human.movement = true;
-        voteStates.GetComponent<VotesReceived>().fill = false;
-        voteStates.GetComponent<VotesReceived>().elapsedTime = 0;
-        voteStates.GetComponent<VotesReceived>().AgainRun();
+        //votesReceived.fill = false;
+        votesReceived.elapsedTime = 0;
+        votesReceived.AgainRun();
 
         color.material.color = Color.red;
         textBool = false;
@@ -189,7 +193,7 @@ public class Place : MonoBehaviour
         {
             
             ObjActive(3);
-            who = voteStates.GetComponent<VotesReceived>().colorValue;
+            who = votesReceived.colorValue;
             build[3].transform.GetChild(who).gameObject.SetActive(true);
             transform.parent.gameObject.SetActive(false);
             

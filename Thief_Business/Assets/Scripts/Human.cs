@@ -89,6 +89,7 @@ public class Human : MonoBehaviour
     {
         if (other.tag=="Banner")
         {
+            Vibration.Vibrate(50);
             other.transform.parent.GetChild(1).gameObject.SetActive(true);
             gameManager.MoneyCanvasPunch(true,0.05f);
             gameManager.money += 3;
