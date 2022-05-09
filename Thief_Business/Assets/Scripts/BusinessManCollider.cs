@@ -29,7 +29,7 @@ public class BusinessManCollider : MonoBehaviour
     public Projectile projectile;
     public Transform projectileTrans;
     public Animator anim;
-    
+    public GameObject crown;
 
     private void Start()
     {
@@ -40,6 +40,7 @@ public class BusinessManCollider : MonoBehaviour
     {
         if (other.tag=="PrintArea")
         {
+            projectile.movement=false;
             if (gameManager.money<=0)
             {
                 anim.SetBool("Sad", true);
@@ -139,6 +140,7 @@ public class BusinessManCollider : MonoBehaviour
         }
         if (other.tag=="Money")
         {
+            crown.gameObject.SetActive(true);
             gameManager.MoneyCanvasPunch(true,0.05f);
             isMoneyHave = true;
             gameManager.money += 5;

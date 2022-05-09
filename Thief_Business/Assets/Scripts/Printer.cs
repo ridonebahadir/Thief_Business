@@ -15,7 +15,7 @@ public class Printer : MonoBehaviour
 
     void Start()
     {
-        count = gameManager.money/2;
+        count = 25;
         StartCoroutine(TargetChange());
        
     }
@@ -31,10 +31,10 @@ public class Printer : MonoBehaviour
         {
             float random = Random.Range(-3, 3);
             GameObject obj = Instantiate(banner);
-            banner = obj;
+            //banner = obj;
             targetPos.localPosition = new Vector3(random, 0, i + 10);
-            banner.transform.position = targetPos.position;
-            banner.transform.DOPunchScale(new Vector3(2, 2, 2), .05f);
+            obj.transform.position = targetPos.position;
+            obj.transform.DOPunchScale(new Vector3(2, 2, 2), .05f);
             //int randomIndex = Random.Range(0, 3);
             //float randomFloatFromNumbers = numbers[randomIndex];
 

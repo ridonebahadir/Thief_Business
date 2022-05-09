@@ -39,11 +39,11 @@ public class Spawn : MonoBehaviour
 
         int randomPoliceBusinessplace = Random.Range(1,holder_bus.childCount);
         GameObject objPolice = Instantiate(police, holder_bus.GetChild(randomPoliceBusinessplace).transform);
-        objPolice.transform.localPosition = new Vector3(0, 4, 0);
+        objPolice.transform.localPosition = new Vector3(0, 5, 0);
 
         int randomPoliceThiefplace = Random.Range(1, holder_thief.childCount);
         GameObject objj = Instantiate(police, holder_thief.GetChild(randomPoliceThiefplace).transform);
-        objj.transform.localPosition = new Vector3(0, 4, 0);
+        objj.transform.localPosition = new Vector3(0, 5, 0);
 
         for (int i = 1; i < holder_bus.childCount; i++)
         {

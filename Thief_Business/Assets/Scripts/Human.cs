@@ -91,10 +91,13 @@ public class Human : MonoBehaviour
         {
             Vibration.Vibrate(50);
             other.transform.parent.GetChild(1).gameObject.SetActive(true);
+            other.transform.parent.GetChild(2).gameObject.SetActive(true);
             gameManager.MoneyCanvasPunch(true,0.05f);
             gameManager.money += 3;
             other.gameObject.SetActive(false);
             gameManager.moneyText.text = gameManager.money.ToString()+"M";
+
+
             
         }
         if (other.tag=="Wheel")

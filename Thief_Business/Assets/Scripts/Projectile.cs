@@ -41,51 +41,59 @@ public class Projectile : MonoBehaviour
 	public Animator humanAnim;
 	public GameObject voteParent;
 	public RectTransform moneyCanvas;
+	[Header("Crown")]
+	public GameObject crown;
+	public Transform businessHead;
+	public Transform thiefHead;
+	public Animator crownAnim;
 	//public Transform[] humanCharacter;
-	
+	public bool movement = true;
     void Update()
 	{
-		
-		
-		
-        if (dynamicJoystick.Horizontal<0)
+        if (movement)
         {
-			//BusinessCharacter.GetChild(0).gameObject.SetActive(false);
-			//BusinessCharacter.GetChild(1).gameObject.SetActive(true);
-			//ThiefCharacter.GetChild(0).gameObject.SetActive(true);
-			//ThiefCharacter.GetChild(1).gameObject.SetActive(false);
+			if (dynamicJoystick.Horizontal < 0)
+			{
+				//BusinessCharacter.GetChild(0).gameObject.SetActive(false);
+				//BusinessCharacter.GetChild(1).gameObject.SetActive(true);
+				//ThiefCharacter.GetChild(0).gameObject.SetActive(true);
+				//ThiefCharacter.GetChild(1).gameObject.SetActive(false);
 
 
 
-			thiefCollider.isMoneyHave = true;
-			businessManCollider.isMoneyHave = false;
-			//colliderBusiness.enabled = true;
-			//colliderThief.enabled = false;
-			throwObj = true;
-			touch = true;
-			
+				thiefCollider.isMoneyHave = true;
+				businessManCollider.isMoneyHave = false;
+				//colliderBusiness.enabled = true;
+				//colliderThief.enabled = false;
+				throwObj = true;
+				touch = true;
+				crownAnim.SetTrigger("run");
 
-		
+
+			}
+			if (dynamicJoystick.Horizontal > 0)
+			{
+				thiefCollider.isMoneyHave = false;
+				businessManCollider.isMoneyHave = true;
+				//BusinessCharacter.GetChild(0).gameObject.SetActive(true);
+				//BusinessCharacter.GetChild(1).gameObject.SetActive(false);
+				//ThiefCharacter.GetChild(0).gameObject.SetActive(false);
+				//ThiefCharacter.GetChild(1).gameObject.SetActive(true);
+				crownAnim.SetTrigger("run");
+
+
+
+
+				//colliderBusiness.enabled = false;
+				//colliderThief.enabled = true;
+				throwObj = false;
+				touch = true;
+
+			}
 		}
-        if(dynamicJoystick.Horizontal > 0)
-        {
-			thiefCollider.isMoneyHave = false;
-			businessManCollider.isMoneyHave = true;
-			//BusinessCharacter.GetChild(0).gameObject.SetActive(true);
-			//BusinessCharacter.GetChild(1).gameObject.SetActive(false);
-			//ThiefCharacter.GetChild(0).gameObject.SetActive(false);
-			//ThiefCharacter.GetChild(1).gameObject.SetActive(true);
-
-
-
-
-
-			//colliderBusiness.enabled = false;
-			//colliderThief.enabled = true;
-			throwObj = false;
-			touch = true;
 		
-		}
+		
+       
         if (touch)
         {
 			foreach (var item in listObj)
@@ -95,6 +103,7 @@ public class Projectile : MonoBehaviour
 			}
 			if (throwObj)
 			{
+				GoCrown(thiefHead);
 				//BUSÝNESS
 				//transform.parent = BusinessKucak;
 				startPos = BusinessKucak;
@@ -113,7 +122,7 @@ public class Projectile : MonoBehaviour
 			}
 			else
 			{
-
+				GoCrown(businessHead);
 				//THIEF
 				//transform.parent = ThiefKucak;
 				startPos = ThiefKucak;
@@ -135,7 +144,7 @@ public class Projectile : MonoBehaviour
         if (isPrinter)
         {
 			GoMoney();
-
+			
 			if (throwObj)
 			{
 				
@@ -164,8 +173,24 @@ public class Projectile : MonoBehaviour
 
 
     }
+	bool onePlay = false;
+    private void GoCrown(Transform target)
+    {
+        if (!onePlay)
+        {
+			
+			crownAnim.SetTrigger("run");
+			onePlay = true;
+		}
+		
+		crown.transform.parent = target;
+		crown.transform.localPosition = new Vector3(-0.55f, 0, 0);
+		crown.transform.localRotation = Quaternion.Euler(0,0,90);
+		
 
-    private void GoMoney()
+	}
+
+	private void GoMoney()
     {
         for (int i = 0; i < listObj.Count; i++)
         {
