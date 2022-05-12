@@ -23,6 +23,8 @@ public class Wheel : MonoBehaviour
     public GameObject[] closeObj;
     public void WheelButton()
     {
+        human.gameObject.transform.GetChild(0).DOScale(new Vector3(13, 13, 13), 0.2f).SetEase(Ease.InSine);
+        human.gameObject.transform.GetChild(1).DOScale(new Vector3(13, 13, 13), 0.2f).SetEase(Ease.InSine);
         foreach (var item in closeObj)
         {
             item.SetActive(false);

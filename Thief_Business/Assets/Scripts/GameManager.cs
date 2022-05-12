@@ -62,8 +62,8 @@ public class GameManager : MonoBehaviour
         thiefAnim.applyRootMotion = true;
         businessAnim.SetBool("Run",true);
         businessAnim.applyRootMotion = true;
-        mainCamera.transform.DOLocalMove(new Vector3(0, 15, -30), 2f);
-        mainCamera.transform.DORotate(new Vector3(10, 0, 0), 2f);
+        mainCamera.transform.DOLocalMove(new Vector3(0, 10, -18), 2f);
+        mainCamera.transform.DORotate(new Vector3(15, 0, 0), 2f);
         Invoke("RootMotion",2f);
     }
    void RootMotion()
