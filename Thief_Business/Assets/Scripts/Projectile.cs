@@ -143,15 +143,17 @@ public class Projectile : MonoBehaviour
 		}
         if (isPrinter)
         {
-			GoMoney();
+			//GoMoney();
 			
 			if (throwObj)
 			{
 				
 				HumanObj.transform.GetChild(1).gameObject.SetActive(true);
+				
 				humanAnim.avatar = humanAvatars[1];
-				human.humanCharacter = HumanObj.transform.GetChild(1);
+				human.humanCharacter = HumanObj.transform.GetChild(0);
 				PlayerPrefs.SetInt("votesColor",1);
+				transform.parent = ThiefKucak.transform;
 			}
 
 			else
@@ -161,6 +163,7 @@ public class Projectile : MonoBehaviour
 				humanAnim.avatar = humanAvatars[0];
 				human.humanCharacter = HumanObj.transform.GetChild(0);
 				PlayerPrefs.SetInt("votesColor",0);
+				transform.parent = BusinessKucak.transform;
 			} 
 
 			
@@ -197,6 +200,45 @@ public class Projectile : MonoBehaviour
 			listObj[i].DOLocalMove(new Vector3(2,30.7f, 0),0.5f+(i*0.1f)).OnComplete(()=>listObj[i].gameObject.SetActive(false));
         }
 		
+		
+    }
+	public void HumanProjectile()
+    {
+		transform.parent = null;
+		LerpAnim();
+  //      if (throwObj)
+  //      {
+		//	transform.parent = HumanObj.transform.GetChild(1).transform;
+  //      }
+  //      else
+  //      {
+		//	transform.parent = HumanObj.transform.GetChild(0).transform;
+
+		//}
+    }
+
+    private void LerpAnim()
+    {
+        if (throwObj)
+        {
+			listObj[listObj.Count-1].gameObject.AddComponent<NodeMoment>();
+			listObj[listObj.Count - 1].gameObject.GetComponent<NodeMoment>().connectedNode = HumanObj.transform;
+			for (int i = listObj.Count - 2	; i > -1; i--)
+			{
+				listObj[i].gameObject.AddComponent<NodeMoment>();
+				listObj[i].gameObject.GetComponent<NodeMoment>().connectedNode = listObj[i + 1];
+			}
+		}
+        else
+        {
+			listObj[0].gameObject.AddComponent<NodeMoment>();
+			listObj[0].gameObject.GetComponent<NodeMoment>().connectedNode = HumanObj.transform;
+			for (int i = 1; i < listObj.Count; i++)
+			{
+				listObj[i].gameObject.AddComponent<NodeMoment>();
+				listObj[i].gameObject.GetComponent<NodeMoment>().connectedNode = listObj[i - 1];
+			}
+		}
 		
     }
 

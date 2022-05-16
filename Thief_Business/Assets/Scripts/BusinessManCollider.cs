@@ -41,6 +41,7 @@ public class BusinessManCollider : MonoBehaviour
         if (other.tag=="PrintArea")
         {
             projectile.movement=false;
+            
             if (gameManager.money<=0)
             {
                 anim.SetBool("Sad", true);
@@ -60,7 +61,7 @@ public class BusinessManCollider : MonoBehaviour
                     anim.SetBool("Sad", true);
                     anim.applyRootMotion = true;
                 }
-                projectile.speed = 10;
+            
                 printer.enabled = true;
                 projectile.touch = true;
                 projectile.isPrinter = true;
@@ -159,12 +160,15 @@ public class BusinessManCollider : MonoBehaviour
     void Late()
     {
         projectile.enabled = false;
-        anim.SetBool("Jump", true);
-        transform.DOJump(targetPos.position, 15, 1, 1.5f, false).OnComplete(() => End()).SetEase(Ease.InOutQuad);
+        //anim.SetBool("Jump", true);
+        //transform.DOJump(targetPos.position, 15, 1, 1.5f, false).OnComplete(() => End()).SetEase(Ease.InOutQuad);
+        transform.DOMove(targetPos.position, 1.5f, false).OnComplete(() => End()).SetEase(Ease.InOutQuad);
+      
     }
     void End()
     {
-        projectileTrans.gameObject.SetActive(false);
+        projectile.HumanProjectile();
+        //projectileTrans.gameObject.SetActive(false);
         moveobj.transform.parent = Human.transform;
         //move.enabled = true;
         Human.SetActive(true);

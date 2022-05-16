@@ -21,6 +21,11 @@ public class Human : MonoBehaviour
     public float minZ;
     public float maxZ = 500;
     public bool movement;
+
+    [Header("BANNER")]
+    public GameObject money;
+    public Transform kucak;
+    public Projectile projectile;
     void Start()
     {
         anim = GetComponent<Animator>();
@@ -97,8 +102,28 @@ public class Human : MonoBehaviour
             other.gameObject.SetActive(false);
             gameManager.moneyText.text = gameManager.money.ToString()+"M";
 
+            GameObject obj = Instantiate(money);
+            obj.transform.parent = projectile.gameObject.transform;
+            obj.gameObject.AddComponent<NodeMoment>();
+          
+            if (projectile.throwObj)
+            {
+                obj.transform.position = projectile.listObj[0].position + new Vector3(0, 0.5f, 0);
+                obj.gameObject.GetComponent<NodeMoment>().connectedNode = projectile.listObj[0].transform;
+                projectile.throwObj = false;
+            }
+            else
+            {
 
-            
+                obj.transform.position = projectile.listObj[projectile.listObj.Count - 1].position + new Vector3(0, 0.5f, 0);
+                obj.gameObject.GetComponent<NodeMoment>().connectedNode = projectile.listObj[projectile.listObj.Count - 1].transform;
+
+
+            }
+           
+            projectile.listObj.Add(obj.transform);
+
+
         }
         if (other.tag=="Wheel")
         {
