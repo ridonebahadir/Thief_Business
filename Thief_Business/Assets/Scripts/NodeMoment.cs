@@ -10,7 +10,7 @@ public class NodeMoment : MonoBehaviour
     {
         transform.position = new Vector3(
             Mathf.Lerp(transform.position.x,connectedNode.position.x,Time.deltaTime*30), 
-            connectedNode.position.y+0.5f, 
+            connectedNode.position.y+1f, 
             connectedNode.transform.position.z);
     }
 }
