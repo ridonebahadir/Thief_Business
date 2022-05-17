@@ -65,7 +65,7 @@ Material:
     - _Cull: 2
     - _Cutoff: 0.5
     - _DamageOnOff: 1
-    - _DamagePower: 0.56
+    - _DamagePower: 8.53
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _GlossMapScale: 1
@@ -86,7 +86,7 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 0.23789412, g: 0.7075472, b: 0.103462085, a: 1}
-    - _DamageColor: {r: 0.4339623, g: 0.4339623, b: 0.4339623, a: 0.31764707}
+    - _DamageColor: {r: 0.9837541, g: 0.990566, b: 0.97654855, a: 1}
     - _EmissionColor: {r: 0.030285645, g: 0.1882353, b: 0, a: 1}
     - _HColor: {r: 0.8396226, g: 0.8396226, b: 0.8396226, a: 1}
     - _OutlineColor: {r: 0, g: 0.23307379, b: 0.7735849, a: 0.16470589}
