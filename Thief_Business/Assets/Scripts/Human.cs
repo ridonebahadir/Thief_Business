@@ -108,14 +108,14 @@ public class Human : MonoBehaviour
           
             if (projectile.throwObj)
             {
-                obj.transform.position = projectile.listObj[0].position + new Vector3(0, 0.5f, 0);
+                //obj.transform.position = projectile.listObj[0].position + new Vector3(0, 0.5f, 0);
                 obj.gameObject.GetComponent<NodeMoment>().connectedNode = projectile.listObj[0].transform;
                 projectile.throwObj = false;
             }
             else
             {
 
-                obj.transform.position = projectile.listObj[projectile.listObj.Count - 1].position + new Vector3(0, 0.5f, 0);
+                //obj.transform.position = projectile.listObj[projectile.listObj.Count - 1].position + new Vector3(0, 0.5f, 0);
                 obj.gameObject.GetComponent<NodeMoment>().connectedNode = projectile.listObj[projectile.listObj.Count - 1].transform;
 
 

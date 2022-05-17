@@ -160,7 +160,7 @@ public class BusinessManCollider : MonoBehaviour
     void Late()
     {
         projectile.enabled = false;
-        //anim.SetBool("Jump", true);
+        anim.SetBool("Jump", true);
         //transform.DOJump(targetPos.position, 15, 1, 1.5f, false).OnComplete(() => End()).SetEase(Ease.InOutQuad);
         transform.DOMove(targetPos.position, 1.5f, false).OnComplete(() => End()).SetEase(Ease.InOutQuad);
       

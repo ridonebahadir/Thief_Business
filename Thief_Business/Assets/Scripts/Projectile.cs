@@ -6,7 +6,8 @@ using DG.Tweening;
 
 public class Projectile : MonoBehaviour
 {
-	
+	public Transform kucakTrump;
+	public Transform kucakBiden;
 	public DynamicJoystick dynamicJoystick;
 	[Tooltip("Position we want to hit")]
 	public Transform targetPos;
@@ -151,7 +152,7 @@ public class Projectile : MonoBehaviour
 				HumanObj.transform.GetChild(1).gameObject.SetActive(true);
 				
 				humanAnim.avatar = humanAvatars[1];
-				human.humanCharacter = HumanObj.transform.GetChild(0);
+				human.humanCharacter = HumanObj.transform.GetChild(1);
 				PlayerPrefs.SetInt("votesColor",1);
 				transform.parent = ThiefKucak.transform;
 			}
@@ -222,7 +223,7 @@ public class Projectile : MonoBehaviour
         if (throwObj)
         {
 			listObj[listObj.Count-1].gameObject.AddComponent<NodeMoment>();
-			listObj[listObj.Count - 1].gameObject.GetComponent<NodeMoment>().connectedNode = HumanObj.transform;
+			listObj[listObj.Count - 1].gameObject.GetComponent<NodeMoment>().connectedNode = kucakBiden.transform;
 			for (int i = listObj.Count - 2	; i > -1; i--)
 			{
 				listObj[i].gameObject.AddComponent<NodeMoment>();
@@ -232,7 +233,7 @@ public class Projectile : MonoBehaviour
         else
         {
 			listObj[0].gameObject.AddComponent<NodeMoment>();
-			listObj[0].gameObject.GetComponent<NodeMoment>().connectedNode = HumanObj.transform;
+			listObj[0].gameObject.GetComponent<NodeMoment>().connectedNode = kucakTrump.transform;
 			for (int i = 1; i < listObj.Count; i++)
 			{
 				listObj[i].gameObject.AddComponent<NodeMoment>();

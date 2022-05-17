@@ -8,7 +8,8 @@ using UnityEngine.UI;
 
 public class Place : MonoBehaviour
 {
- 
+    public GameObject particle;
+    public Projectile projectile;
     public Human human;
     public GameObject flash;
     private int costBuild;
@@ -16,7 +17,7 @@ public class Place : MonoBehaviour
     
     public GameManager gameManager;
     public GameObject[] build;
-    private int updateCost;
+    public int updateCost;
     public int[] upgradeCost;
     private Renderer color;
     private TextMeshPro valueUpgradeText;
@@ -89,8 +90,8 @@ public class Place : MonoBehaviour
                 onePlayTime = false;
                 pay = true;
                 //voteStates.GetComponent<VotesReceived>().amount = PlayerPrefs.GetFloat("Vote" + id, 0f);
-               
 
+               
 
             }
             else
@@ -113,6 +114,10 @@ public class Place : MonoBehaviour
     }
     void Pay()
     {
+        again = true;
+        child = projectile.transform.childCount - 1;
+        lastCloseMoney = projectile.transform.childCount - 5;
+        StartCoroutine(CloseMoney());
         voteStates.color = votesColor[PlayerPrefs.GetInt("votesColor")];
         human.transform.DOMove(transform.position, 1.5f).OnComplete(() => humanAnim.SetBool("Talk", true)); flash.SetActive(true);
         human.transform.GetChild(0).DOLocalRotate(new Vector3(0, 0, 0), 0.5f);
@@ -134,12 +139,14 @@ public class Place : MonoBehaviour
         });
 
         textBool = true;
-            DOTween.To(() => gameManager.money, x => gameManager.money = x, remainingMoney, 6f)
+        DOTween.To(() => gameManager.money, x => gameManager.money = x, remainingMoney, 6f)
            .OnComplete(() => End());
 
 
         onePlayTime = true;
         StartCoroutine(MoneyCanvasPunch());
+        
+       
     }
     bool animationMoney = true;
     IEnumerator MoneyCanvasPunch()
@@ -156,6 +163,8 @@ public class Place : MonoBehaviour
     }
     void End()
     {
+       
+        
         animationMoney = false;
         gameManager.MoneyBackColorGood();
         flash.SetActive(false);
@@ -168,10 +177,34 @@ public class Place : MonoBehaviour
         color.material.color = Color.red;
         textBool = false;
         UpGrade();
-
+       
+        
+       
         PlayerPrefs.SetInt("CostBuild" + id, costBuild);
     }
-   
+    int lastCloseMoney;
+    int child;
+    bool again;
+    IEnumerator CloseMoney()
+    {
+        
+        while (again)
+        {
+           
+            for (int i =child; i > lastCloseMoney; i--)
+            {
+                Debug.Log("ldsþkgdsjgþsdlgdsgksd");
+                Instantiate(particle, projectile.transform.GetChild(i).gameObject.transform.position, Quaternion.identity);
+                projectile.transform.GetChild(i).gameObject.SetActive(false);
+                projectile.transform.GetChild(i).parent = null;
+
+                yield return new WaitForSeconds(1f);
+            }
+            again = false;
+        }
+        
+    }
+
     void UpGrade()
     {
        
@@ -181,6 +214,7 @@ public class Place : MonoBehaviour
            
             updateCost = upgradeCost[1];
             ObjActive(0);
+            
 
         }
         if (costBuild <= startCost - upgradeCost[1])
